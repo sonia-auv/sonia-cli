@@ -10,7 +10,12 @@
   "dependencies": {
     "@oclif/command": "^1.6.1",
     "@oclif/config": "^1.15.1",
+    "@oclif/plugin-autocomplete": "^0.2.0",
     "@oclif/plugin-help": "^3.1.0",
+    "@types/js-yaml": "^3.12.4",
+    "js-yaml": "^3.14.0",
+    "listr": "^0.14.3",
+    "oclif": "^1.16.1",
     "tslib": "^1.13.0"
   },
   "devDependencies": {
@@ -48,7 +53,8 @@
     "commands": "./lib/commands",
     "bin": "sonia",
     "plugins": [
-      "@oclif/plugin-help"
+      "@oclif/plugin-help",
+      "@oclif/plugin-autocomplete"
     ]
   },
   "repository": "sonia-auv/sonia-cli",
