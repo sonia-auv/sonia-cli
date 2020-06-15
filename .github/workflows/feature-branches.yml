@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-feature-branch-and-test:
-    name: "Build ROS robot X86/64"
+    name: "Build and Test"
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: sonia-cli
