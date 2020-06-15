@@ -1,4 +1,4 @@
-name: Docker Image CI - Feature Branch
+name: Unit test - Feature Branch
 
 on:
   push:
