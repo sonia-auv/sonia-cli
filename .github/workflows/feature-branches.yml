@@ -1,0 +1,48 @@
+name: Docker Image CI - Feature Branch
+
+on:
+  push:
+    branches: [feature/**]
+
+jobs:
+  build-feature-branch-and-test:
+    name: "Build ROS robot X86/64"
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: sonia-cli
+      GITHUB_REMOTE_URL: docker.pkg.github.com/${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the docker image and run unit test
+        run: |
+          docker build . --tag build-feature-${GITHUB_REF##*/}-${GITHUB_RUN_NUMBER} --build-arg BUILD_DATE=$(date '+%Y-%m-%d_%H:%M:%S') --build-arg VERSION=${GITHUB_REF##*/}-$(date '  +%Y-%m-%d_%H:%M:%S') --build-arg BASE_IMAGE=${BASE_IMAGE}
+
+  notify-success:
+    name: "Notify Slack - Success"
+    runs-on: ubuntu-latest
+    needs: [build-feature-branch-and-test]
+    if: success()
+    steps:
+      - name: Notify Slack Success
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: github-ci-notifications
+          status: SUCCESS
+          color: good
+
+  notify-fail:
+    name: "Notify Slack - Failure"
+    runs-on: ubuntu-latest
+    needs: [build-feature-branch-and-test]
+    if: failure()
+    steps:
+      - name: Notify Slack Fail
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: github-ci-notifications
+          status: FAILED
+          color: danger
