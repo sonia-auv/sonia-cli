@@ -1,0 +1,20 @@
+- name: dockbox
+  devices:
+    - name: router
+      ip: 192.168.0.1
+- name: auv7
+  devices:
+    - name: switch
+      ip: 192.168.0.10
+    - name: computer
+      ip: 192.168.0.11
+    - name: sonar
+      ip: 192.168.0.12
+- name: auv8
+  devices:
+    - name: switch
+      ip: 192.168.0.30
+    - name: computer
+      ip: 192.168.0.31
+    - name: sonar
+      ip: 192.168.0.32
