@@ -111,7 +111,7 @@ export default class Diagnose extends Command {
 
             tasks.add({
               title: name,
-              task: () => command(cmd).then(result => {
+              task: () => command(cmd).catch(result => {
                 if (result !== '') {
                   throw new Error(errorMessage);
                 }
