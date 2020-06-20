@@ -20,7 +20,7 @@ export default class Diagnose extends Command {
   static args = [
     {
       name: 'platform',
-      options: [...Config.map(x => x.name)],
+      options: Config.map(x => x.name),
       description: "Platform to target. None = all"
     },
     {
@@ -64,7 +64,7 @@ export default class Diagnose extends Command {
     const { args, flags } = this.parse(Diagnose);
 
     const { platforms, deviceName } = this.parseArgs(args);
-
+    
     console.log("Platform: ", platforms);
     console.log("Device: ", deviceName);
 

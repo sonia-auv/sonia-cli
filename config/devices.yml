@@ -2,6 +2,16 @@
   devices:
     - name: router
       ip: 192.168.0.1
+      diagnose:
+        name: Checking router
+        success_message: "Validation succeded for router"
+        error_message: "An error occur while "
+        actions:
+          - name: "Pinging router"
+            success_message: "Router is up"
+            error_message: "Router seems to be down..."
+            cmd: "ping 192.168.0.1 -n 5"
+
 - name: auv7
   devices:
     - name: switch
