@@ -2,10 +2,9 @@ import { Command, flags } from '@oclif/command'
 import { Config } from '../helper/platformsConfig'
 import { IPlatform } from '../models/config'
 import { exception } from 'console'
+import * as Listr from 'listr'
+import {command} from 'execa'
 
-
-const execa = require('execa');
-const Listr = require('listr');
 
 const actionExpression = new RegExp("\\{\\{(.*?)\\}\\}", "g");
 
@@ -84,6 +83,8 @@ export default class Diagnose extends Command {
     console.log("Platform: ", platforms);
     console.log("Device: ", deviceName);
 
+    const tasks = new Listr();
+
     platforms.forEach(platform => {
 
       this.plaform = platform;
@@ -98,7 +99,7 @@ export default class Diagnose extends Command {
 
           const actions = diagnose.actions;
 
-          const tasks = new Listr();
+          
 
           actions.forEach(action => {
             const name = action.name.replace(actionExpression, (_, group1) => eval(group1));
@@ -110,7 +111,7 @@ export default class Diagnose extends Command {
 
             tasks.add({
               title: name,
-              task: () => execa.stddout(cmd).then(result => {
+              task: () => command(cmd).then(result => {
                 if (result !== '') {
                   throw new Error(errorMessage);
                 }
@@ -127,6 +128,8 @@ export default class Diagnose extends Command {
 
     });
 
+    tasks.run();
+    
   }
 
   async catch(err: any) {
