@@ -107,8 +107,6 @@ export default class Diagnose extends Command {
             const successMessage = action.successMessage.replace(actionExpression, (_, group1) => eval(group1));
             const errorMessage = action.errorMessage.replace(actionExpression, (_, group1) => eval(group1));
 
-            console.log(cmd)
-
             tasks.add({
               title: name,
               task: () => command(cmd).catch(result => {
