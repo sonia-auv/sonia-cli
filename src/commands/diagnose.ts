@@ -1,5 +1,6 @@
 import { Command, flags } from '@oclif/command'
-import { Config, IPlatform } from '../helper/platformsConfig'
+import { Config } from '../helper/platformsConfig'
+import { IPlatform } from '../models/config'
 import { exception } from 'console'
 
 export default class Diagnose extends Command {
@@ -64,7 +65,7 @@ export default class Diagnose extends Command {
     const { args, flags } = this.parse(Diagnose);
 
     const { platforms, deviceName } = this.parseArgs(args);
-    
+
     console.log("Platform: ", platforms);
     console.log("Device: ", deviceName);
 
