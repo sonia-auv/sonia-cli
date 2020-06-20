@@ -6,6 +6,11 @@ import { listr as Listr } from listr
 
 const actionExpression = new RegExp("\\{\\{(.*?)\\}\\}", "g");
 
+const replacement = () => {
+  console.log(replacement.caller);
+  return (_: string, group1: string) => eval(group1);
+};
+
 export default class Diagnose extends Command {
   static description = 'Diagnose the system, specific platform and/or device(s)'
 
@@ -66,6 +71,8 @@ export default class Diagnose extends Command {
     return { platforms, deviceName };
   }
 
+  plaform?: IPlatform;
+
   async run() {
     const { args, flags } = this.parse(Diagnose);
 
@@ -76,7 +83,7 @@ export default class Diagnose extends Command {
 
     platforms.forEach(platform => {
 
-
+      this.plaform = platform;
 
       const devices = platform.devices.filter(x => deviceName === undefined || x.name === deviceName);
 
@@ -90,7 +97,7 @@ export default class Diagnose extends Command {
 
           actions.forEach(action => {
             const name = action.name.replace(actionExpression, (_, group1) => eval(group1));
-            const cmd = action.cmd.replace(actionExpression, (_, group1) => device.ip);
+            const cmd = action.cmd.replace(actionExpression, (_, group1) => eval(group1));
 
             console.log(cmd)
 
