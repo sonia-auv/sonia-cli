@@ -3,57 +3,76 @@
     - name: router
       ip: 192.168.0.1
       diagnose:
-        name: Validate Dockbox router availability
-        successMessage: "Dockbox router is available"
-        errorMessage: "An error occur while diagnosing router availability"
+        name: Validate {{plateform.name}} router availability
+        successMessage: "Diagnosed {{plateform.name}} {{device.name}} successfully"
+        errorMessage: "An error occur while diagnosing {{plateform.name}}"
         actions:
-          - name: "Ping Router"
-            successMessage: "Router is up"
-            errorMessage: "Router seems to be down..."
-            cmd: "ping 192.168.0.1 -n 5"
+          - name: "Ping {{plateform.name}} {{device.name}}"
+            successMessage: "{{plateform.name}} {{device.name}} is available"
+            errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ping {{device.ip}} -n 5"
 - name: auv7
   devices:
     - name: switch
       ip: 192.168.0.10
       diagnose:
-        name: Validate AUV7 switch router availability
-        successMessage: "AUV7 switch is available"
-        errorMessage: "An error occur while diagnosing AUV7 switch availability"
-        cmd: "ping 192.168.0.10 -n 5"
+        name: Validate {{plateform.name}} {{device.name}} availability
+        successMessage: "Diagnosed {{plateform.name}} {{device.name}} successfully"
+        errorMessage: "An error occur while diagnosing {{plateform.name}} {{device.name}}"
+        actions:
+          - name: "Ping {{plateform.name}} {{device.name}}"
+            successMessage: "{{plateform.name}} {{device.name}} is available"
+            errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ping {{device.ip}} -n 5"
     - name: computer
       ip: 192.168.0.11
       diagnose:
-        name: Validate AUV7 computer availability
-        successMessage: "AUV7 computer is available"
-        errorMessage: "An error occur while diagnosing AUV7 computer availability"
-        cmd: "ping 192.168.0.11 -n 5"
+        name: Validate {{plateform.name}} {{device.name}} availability
+        successMessage: "Diagnosed {{plateform.name}} {{device.name}} successfully"
+        errorMessage: "An error occur while diagnosing {{plateform.name}} {{device.name}}"
+        actions:
+          successMessage: "{{plateform.name}} {{device.name}} is available"
+          errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
+          cmd: "ping {{device.ip}} -n 5"
     - name: sonar
       ip: 192.168.0.12
       diagnose:
-        name: Validate AUV7 sonar availability
-        successMessage: "AUV7 sonar is available"
-        errorMessage: "An error occur while diagnosing AUV7 sonar availability"
-        cmd: "ping 192.168.0.11 -n 5"
+        name: Validate {{plateform.name}} {{device.name}} availability
+        successMessage: "Diagnosed {{plateform.name}} {{device.name}} successfully"
+        errorMessage: "An error occur while diagnosing {{plateform.name}} {{device.name}}"
+        actions:
+          successMessage: "{{plateform.name}} {{device.name}} is available"
+          errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
+          cmd: "ping {{device.ip}} -n 5"
 - name: auv8
   devices:
     - name: switch
       ip: 192.168.0.30
       diagnose:
-        name: Validate AUV8 switch router availability
-        successMessage: "AUV8 switch is available"
-        errorMessage: "An error occur while diagnosing AUV7 switch availability"
-        cmd: "ping 192.168.0.30 -n 5"
+        name: Validate {{plateform.name}} {{device.name}} availability
+        successMessage: "Diagnosed {{plateform.name}} {{device.name}} successfully"
+        errorMessage: "An error occur while diagnosing {{plateform.name}} {{device.name}}"
+        actions:
+          successMessage: "{{plateform.name}} {{device.name}} is available"
+          errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
+          cmd: "ping {{device.ip}} -n 5"
     - name: computer
       ip: 192.168.0.31
       diagnose:
-        name: Validate AUV8 computer availability
-        successMessage: "AUV8 computer is available"
-        errorMessage: "An error occur while diagnosing AUV7 computer availability"
-        cmd: "ping 192.168.0.31 -n 5"
+        name: Validate {{plateform.name}} {{device.name}} availability
+        successMessage: "Diagnosed {{plateform.name}} {{device.name}} successfully"
+        errorMessage: "An error occur while diagnosing {{plateform.name}} {{device.name}}"
+        actions:
+          successMessage: "{{plateform.name}} {{device.name}} is available"
+          errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
+          cmd: "ping {{device.ip}} -n 5"
     - name: sonar
       ip: 192.168.0.32
       diagnose:
-        name: Validate AUV8 sonar availability
-        successMessage: "AUV8 sonar is available"
-        errorMessage: "An error occur while diagnosing AUV8 sonar availability"
-        cmd: "ping 192.168.0.11 -n 5"
+        name: Validate {{plateform.name}} {{device.name}} availability
+        successMessage: "Diagnosed {{plateform.name}} {{device.name}} successfully"
+        errorMessage: "An error occur while diagnosing {{plateform.name}} {{device.name}}"
+        actions:
+          successMessage: "{{plateform.name}} {{device.name}} is available"
+          errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
+          cmd: "ping {{device.ip}} -n 5"
