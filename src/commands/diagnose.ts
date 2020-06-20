@@ -3,10 +3,12 @@ import { Config } from '../helper/platformsConfig'
 import { IPlatform } from '../models/config'
 import { exception } from 'console'
 
+const actionExpression = new RegExp("\\{\\{(.*?)\\}\\}", "g");
+
 export default class Diagnose extends Command {
   static description = 'Diagnose the system, specific platform and/or device(s)'
 
-  static actionExpression = new RegExp("\\{\\{(.*?)\\}\\}", "g")
+  
 
   static examples = [
     `$ sonia diagnose`,
@@ -86,14 +88,7 @@ export default class Diagnose extends Command {
           const actions = diagnose.actions;
 
           actions.forEach(action => {
-            const name = action.name.replace(Diagnose.actionExpression, (x, group1) => {
-
-              console.log(x);
-              console.log(eval(group1));
-
-              return eval(group1);
-
-            });
+            const name = action.name.replace(actionExpression, (_, group1) => eval(group1));
 
             console.log("Name:", name);
           })
