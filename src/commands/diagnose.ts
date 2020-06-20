@@ -2,7 +2,7 @@ import { Command, flags } from '@oclif/command'
 import { Config } from '../helper/platformsConfig'
 import { IPlatform } from '../models/config'
 import { exception } from 'console'
-import { listr as Listr } from listr
+import { Listr } from 'listr'
 
 const actionExpression = new RegExp("\\{\\{(.*?)\\}\\}", "g");
 
@@ -101,15 +101,15 @@ export default class Diagnose extends Command {
 
             console.log(cmd)
 
-            // const task = new Listr([
-            //   {
-            //     title: name,
-            //     // task: () => {
+            const task = new Listr([
+              {
+                title: name,
+                // task: () => {
 
-            //     // }
+                // }
 
-            //   }
-            // ])
+              }
+            ])
 
             console.log("Name:", name);
           })
