@@ -1,15 +1,7 @@
 import { readFileSync } from 'fs';
 import { safeLoad } from 'js-yaml';
+import { IPlatform } from '../models/config';
 
-export interface IDevice {
-    name: string
-    ip: string
-}
-
-export interface IPlatform {
-    name: string
-    devices: IDevice[]
-}
 
 export class PlatformsConfig {
 
