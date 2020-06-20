@@ -3,7 +3,7 @@ import { Config } from '../helper/platformsConfig'
 import { IPlatform } from '../models/config'
 import { exception } from 'console'
 import * as Listr from 'listr'
-import {command} from 'execa'
+import { command } from 'execa'
 
 
 const actionExpression = new RegExp("\\{\\{(.*?)\\}\\}", "g");
@@ -99,7 +99,7 @@ export default class Diagnose extends Command {
 
           const actions = diagnose.actions;
 
-          
+
 
           actions.forEach(action => {
             const name = action.name.replace(actionExpression, (_, group1) => eval(group1));
@@ -128,8 +128,10 @@ export default class Diagnose extends Command {
 
     });
 
-    tasks.run();
-    
+    tasks.run().catch(err => {
+      console.error(err);
+    });
+
   }
 
   async catch(err: any) {
