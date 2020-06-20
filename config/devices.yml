@@ -4,7 +4,7 @@
       ip: 192.168.0.1
       diagnose:
         name: Checking router
-        successMessage: "Validation succeded for router"
+        successMessage: "Validation succeeded for router"
         errorMessage: "An error occur while "
         actions:
           - name: "Pinging router"
