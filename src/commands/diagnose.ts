@@ -80,8 +80,8 @@ export default class Diagnose extends Command {
 
     const { platforms, deviceName } = this.parseArgs(args);
 
-    console.log("Platform: ", platforms);
-    console.log("Device: ", deviceName);
+    // console.log("Platform: ", platforms);
+    // console.log("Device: ", deviceName);
 
     const tasks = new Listr();
 
