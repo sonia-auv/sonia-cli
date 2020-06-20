@@ -117,7 +117,7 @@ export default class Diagnose extends Command {
             })
 
 
-            console.log("Name:", name);
+            // console.log("Name:", name);
           })
 
         }
