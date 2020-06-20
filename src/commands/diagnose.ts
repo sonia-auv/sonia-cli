@@ -6,6 +6,8 @@ import { exception } from 'console'
 export default class Diagnose extends Command {
   static description = 'Diagnose the system, specific platform and/or device(s)'
 
+  static actionExpression = new RegExp("\\{\\{(.*?)\\}\\}", "g")
+
   static examples = [
     `$ sonia diagnose`,
     `$ sonia diagnose dockbox`,
@@ -32,8 +34,8 @@ export default class Diagnose extends Command {
   ]
 
   /**
-   * Parse args and return 
-   * @param args 
+   * Parse args and return
+   * @param args
    * @returns platforms   Platforms to diagnose
    * @returns deviceName  Specific device or undefined for all devices
    */
@@ -84,11 +86,11 @@ export default class Diagnose extends Command {
           const actions = diagnose.actions;
 
           actions.forEach(action => {
-            const name = action.name.replace(new RegExp("\\{\\{(.*?)\\}\\}", "g"), (x, group1) => {
+            const name = action.name.replace(Diagnose.actionExpression, (x, group1) => {
 
               console.log(x);
               console.log(eval(group1));
-              
+
               return eval(group1);
 
             });
