@@ -31,9 +31,10 @@
         successMessage: "Diagnosed {{plateform.name}} {{device.name}} successfully"
         errorMessage: "An error occur while diagnosing {{plateform.name}} {{device.name}}"
         actions:
-          successMessage: "{{plateform.name}} {{device.name}} is available"
-          errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
-          cmd: "ping {{device.ip}} -n 5"
+          - name: "Ping {{plateform.name}} {{device.name}}"
+            successMessage: "{{plateform.name}} {{device.name}} is available"
+            errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ping {{device.ip}} -n 5"
     - name: sonar
       ip: 192.168.0.12
       diagnose:
@@ -41,9 +42,10 @@
         successMessage: "Diagnosed {{plateform.name}} {{device.name}} successfully"
         errorMessage: "An error occur while diagnosing {{plateform.name}} {{device.name}}"
         actions:
-          successMessage: "{{plateform.name}} {{device.name}} is available"
-          errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
-          cmd: "ping {{device.ip}} -n 5"
+          - name: "Ping {{plateform.name}} {{device.name}}"
+            successMessage: "{{plateform.name}} {{device.name}} is available"
+            errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ping {{device.ip}} -n 5"
 - name: auv8
   devices:
     - name: switch
@@ -53,9 +55,10 @@
         successMessage: "Diagnosed {{plateform.name}} {{device.name}} successfully"
         errorMessage: "An error occur while diagnosing {{plateform.name}} {{device.name}}"
         actions:
-          successMessage: "{{plateform.name}} {{device.name}} is available"
-          errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
-          cmd: "ping {{device.ip}} -n 5"
+          - name: "Ping {{plateform.name}} {{device.name}}"
+            successMessage: "{{plateform.name}} {{device.name}} is available"
+            errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ping {{device.ip}} -n 5"
     - name: computer
       ip: 192.168.0.31
       diagnose:
@@ -63,9 +66,10 @@
         successMessage: "Diagnosed {{plateform.name}} {{device.name}} successfully"
         errorMessage: "An error occur while diagnosing {{plateform.name}} {{device.name}}"
         actions:
-          successMessage: "{{plateform.name}} {{device.name}} is available"
-          errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
-          cmd: "ping {{device.ip}} -n 5"
+          - name: "Ping {{plateform.name}} {{device.name}}"
+            successMessage: "{{plateform.name}} {{device.name}} is available"
+            errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ping {{device.ip}} -n 5"
     - name: sonar
       ip: 192.168.0.32
       diagnose:
@@ -73,6 +77,7 @@
         successMessage: "Diagnosed {{plateform.name}} {{device.name}} successfully"
         errorMessage: "An error occur while diagnosing {{plateform.name}} {{device.name}}"
         actions:
-          successMessage: "{{plateform.name}} {{device.name}} is available"
-          errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
-          cmd: "ping {{device.ip}} -n 5"
+          - name: "Ping {{plateform.name}} {{device.name}}"
+            successMessage: "{{plateform.name}} {{device.name}} is available"
+            errorMessage: "{{plateform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ping {{device.ip}} -n 5"
