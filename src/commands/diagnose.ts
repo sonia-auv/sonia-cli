@@ -69,6 +69,39 @@ export default class Diagnose extends Command {
     console.log("Platform: ", platforms);
     console.log("Device: ", deviceName);
 
+    platforms.forEach(platform => {
+
+
+
+      const devices = platform.devices.filter(x => deviceName === undefined || x.name === deviceName);
+
+      devices.forEach(device => {
+
+        const diagnose = device.diagnose;
+
+        if (diagnose !== undefined) {
+
+          const actions = diagnose.actions;
+
+          actions.forEach(action => {
+            const name = action.name.replace(new RegExp("\\{\\{(.*?)\\}\\}", "g"), (x, group1) => {
+
+              console.log(x);
+              console.log(eval(group1));
+              
+              return eval(group1);
+
+            });
+
+            console.log("Name:", name);
+          })
+
+        }
+
+      });
+
+    });
+
   }
 
   async catch(err: any) {
