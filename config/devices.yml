@@ -10,7 +10,7 @@
           - name: "Ping {{platform.name}} {{device.name}}"
             successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ping {{device.ip}} -n 5"
+            cmd: "ping {{device.ip}} -c  5"
 - name: auv7
   devices:
     - name: switch
@@ -23,7 +23,7 @@
           - name: "Ping {{platform.name}} {{device.name}}"
             successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ping {{device.ip}} -n 5"
+            cmd: "ping {{device.ip}} -c  5"
     - name: computer
       ip: 192.168.0.11
       diagnose:
@@ -34,7 +34,7 @@
           - name: "Ping {{platform.name}} {{device.name}}"
             successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ping {{device.ip}} -n 5"
+            cmd: "ping {{device.ip}} -c  5"
     - name: sonar
       ip: 192.168.0.12
       diagnose:
@@ -45,7 +45,7 @@
           - name: "Ping {{platform.name}} {{device.name}}"
             successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ping {{device.ip}} -n 5"
+            cmd: "ping {{device.ip}} -c  5"
 - name: auv8
   devices:
     - name: switch
@@ -58,7 +58,7 @@
           - name: "Ping {{platform.name}} {{device.name}}"
             successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ping {{device.ip}} -n 5"
+            cmd: "ping {{device.ip}} -c  5"
     - name: computer
       ip: 192.168.0.31
       diagnose:
@@ -69,7 +69,7 @@
           - name: "Ping {{platform.name}} {{device.name}}"
             successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ping {{device.ip}} -n 5"
+            cmd: "ping {{device.ip}} -c  5"
     - name: sonar
       ip: 192.168.0.32
       diagnose:
@@ -80,4 +80,4 @@
           - name: "Ping {{platform.name}} {{device.name}}"
             successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ping {{device.ip}} -n 5"
+            cmd: "ping {{device.ip}} -c  5"
