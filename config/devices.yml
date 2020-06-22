@@ -23,6 +23,10 @@
     - name: computer
       ip: 192.168.0.11
       user: sonia
+      usbCamFrontId: 1e10:3300
+      usbCamBottomId: 1e10:3300
+      usbIMUId: 1e10:3300
+      usbHydroId: 1e10:3300
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -33,6 +37,19 @@
           - name: "{{platform.name}} {{device.name}} docker daemon available"
             errorMessage: "{{platform.name}} {{device.name}} docker daemon seems to be unavailable"
             cmd: "docker -H ssh://{{device.user}}@{{device.ip}} ps"
+          - name: "{{platform.name}} front-camera available"
+            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbCamFrontId}}'"
+          - name: "{{platform.name}} bottom-camera available"
+            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbCamBottomId}}'"
+          - name: "{{platform.name}} imu available"
+            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbIMUId}}'"
+          - name: "{{platform.name}} hydrophones available"
+            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbHydroId}}'"
+
     - name: dvl
       ip: 192.168.0.12
       diagnose:
@@ -52,47 +69,6 @@
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
 
-    - name: front-camera
-      id: 1e10:3300
-      diagnose:
-        name: "Validate {{platform.name}} {{device.name}} availability"
-        errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-        actions:
-          - name: "{{platform.name}} {{device.name}} available"
-            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ssh -o ConnectTimeout=15 {{computer.user}}@{{computer.ip}} lsusb | grep '{{device.id}}'"
-    - name: bottom-camera
-      id: 1e10:3300
-      diagnose:
-        name: "Validate {{platform.name}} {{device.name}} availability"
-        errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-        actions:
-          - name: "{{platform.name}} {{device.name}} available"
-            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ssh -o ConnectTimeout=15 {{computer.user}}@{{computer.ip}} lsusb | grep '{{device.id}}'"
-    - name: imu
-      ip: 192.168.0.11
-      user: sonia
-      id: 1e10:3300
-      diagnose:
-        name: "Validate {{platform.name}} {{device.name}} availability"
-        errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-        actions:
-          - name: "{{platform.name}} {{device.name}} available"
-            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
-    - name: hydro
-      ip: 192.168.0.11
-      user: sonia
-      id: 1e10:3300
-      diagnose:
-        name: "Validate {{platform.name}} {{device.name}} availability"
-        errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-        actions:
-          - name: "{{platform.name}} {{device.name}} available"
-            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
-
 - name: auv8
   devices:
     - name: switch
@@ -106,8 +82,13 @@
             cmd: "ping {{device.ip}} -c  5"
     - name: computer
       ip: 192.168.0.31
+      user: sonia
+      usbCamFrontId: 1e10:3300
+      usbCamBottomId: 1e10:3300
+      usbIMUId: 1e10:3300
+      usbHydroId: 1e10:3300
       diagnose:
-        name: Validate {{platform.name}} {{device.name}} availability
+        name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
         actions:
           - name: "{{platform.name}} {{device.name}} available"
@@ -115,7 +96,19 @@
             cmd: "ping {{device.ip}} -c  5"
           - name: "{{platform.name}} {{device.name}} docker daemon available"
             errorMessage: "{{platform.name}} {{device.name}} docker daemon seems to be unavailable"
-            cmd: "docker -H ssh://sonia@{{device.ip}} ps"
+            cmd: "docker -H ssh://{{device.user}}@{{device.ip}} ps"
+          - name: "{{platform.name}} front-camera available"
+            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbCamFrontId}}'"
+          - name: "{{platform.name}} bottom-camera available"
+            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbCamBottomId}}'"
+          - name: "{{platform.name}} imu available"
+            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbIMUId}}'"
+          - name: "{{platform.name}} hydrophones available"
+            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbHydroId}}'"
     - name: dvl
       ip: 192.168.0.32
       diagnose:
@@ -131,52 +124,6 @@
         name: Validate {{platform.name}} {{device.name}} availability
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
         actions:
-          - name: "Ping {{platform.name}} {{device.name}}"
+          - name: "{{platform.name}} {{device.name}} available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
-
-    - name: front-camera
-      ip: 192.168.0.31
-      user: sonia
-      id: 1e10:3300
-      diagnose:
-        name: "Validate {{platform.name}} {{device.name}} availability"
-        errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-        actions:
-          - name: "{{platform.name}} {{device.name}} available"
-            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
-    - name: bottom-camera
-      ip: 192.168.0.31
-      user: sonia
-      id: 1e10:3300
-      diagnose:
-        name: "Validate {{platform.name}} {{device.name}} availability"
-        errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-        actions:
-          - name: "{{platform.name}} {{device.name}} available"
-            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
-
-    - name: imu
-      ip: 192.168.0.31
-      user: sonia
-      id: 1e10:3300
-      diagnose:
-        name: "Validate {{platform.name}} {{device.name}} availability"
-        errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-        actions:
-          - name: "{{platform.name}} {{device.name}} available"
-            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
-    - name: hydro
-      ip: 192.168.0.31
-      user: sonia
-      id: 1e10:3300
-      diagnose:
-        name: "Validate {{platform.name}} {{device.name}} availability"
-        errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-        actions:
-          - name: "{{platform.name}} {{device.name}} available"
-            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
