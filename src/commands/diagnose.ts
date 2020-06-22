@@ -1,6 +1,6 @@
 import { Command, flags } from '@oclif/command'
 import { Config } from '../helper/platformsConfig'
-import { IPlatform } from '../models/config'
+import { IPlatform, IDiagnoseAction } from '../models/config'
 import { exception, error } from 'console'
 import * as Listr from 'listr'
 import { command } from 'execa'
@@ -75,7 +75,7 @@ export default class Diagnose extends Command {
     return { platforms, deviceName };
   }
 
-  plaform?: IPlatform;
+  platform?: IPlatform;
 
   async run() {
     const { args, flags } = this.parse(Diagnose);
@@ -85,9 +85,11 @@ export default class Diagnose extends Command {
 
     platforms.forEach(platform => {
 
-      this.plaform = platform;
+      this.platform = platform;
 
       const devices = platform.devices.filter(x => deviceName === undefined || x.name === deviceName);
+
+      const computer = platform.devices.filter(x => x.name === "computer");
 
       const deviceTasks = new Listr({ concurrent: true, exitOnError: false });
 
@@ -118,16 +120,12 @@ export default class Diagnose extends Command {
               })
             })
           })
-
           deviceTasks.add({
             title: name,
             task: () => tasks
           });
-
         }
-
       });
-
       platformTasks.add({
         title: platform.name,
         task: () => deviceTasks
