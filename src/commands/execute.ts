@@ -53,7 +53,7 @@ export default class Execute extends Command {
       throw "cmd is not valid for this platform";
     }
 
-    const executeConfig = device.execute!.find(x => x.name === cmdName)!;// platform.devices.filter(x => x.execute).map(x => x.execute!).flat(1).find(x => x.name)!;
+    const executeConfig = device.execute!.find(x => x.name === cmdName)!;
 
     return { platform, device, executeConfig };
   }
