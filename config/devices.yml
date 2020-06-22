@@ -53,6 +53,24 @@
             cmd: "ping {{device.ip}} -c  5"
 
     - name: front-camera
+      id: 1e10:3300
+      diagnose:
+        name: "Validate {{platform.name}} {{device.name}} availability"
+        errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+        actions:
+          - name: "{{platform.name}} {{device.name}} available"
+            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ssh -o ConnectTimeout=15 {{computer.user}}@{{computer.ip}} lsusb | grep '{{device.id}}'"
+    - name: bottom-camera
+      id: 1e10:3300
+      diagnose:
+        name: "Validate {{platform.name}} {{device.name}} availability"
+        errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+        actions:
+          - name: "{{platform.name}} {{device.name}} available"
+            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ssh -o ConnectTimeout=15 {{computer.user}}@{{computer.ip}} lsusb | grep '{{device.id}}'"
+    - name: imu
       ip: 192.168.0.11
       user: sonia
       id: 1e10:3300
@@ -63,7 +81,7 @@
           - name: "{{platform.name}} {{device.name}} available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
-    - name: bottom-camera
+    - name: hydro
       ip: 192.168.0.11
       user: sonia
       id: 1e10:3300
@@ -129,6 +147,29 @@
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
     - name: bottom-camera
+      ip: 192.168.0.31
+      user: sonia
+      id: 1e10:3300
+      diagnose:
+        name: "Validate {{platform.name}} {{device.name}} availability"
+        errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+        actions:
+          - name: "{{platform.name}} {{device.name}} available"
+            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
+
+    - name: imu
+      ip: 192.168.0.31
+      user: sonia
+      id: 1e10:3300
+      diagnose:
+        name: "Validate {{platform.name}} {{device.name}} availability"
+        errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+        actions:
+          - name: "{{platform.name}} {{device.name}} available"
+            errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
+    - name: hydro
       ip: 192.168.0.31
       user: sonia
       id: 1e10:3300

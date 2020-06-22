@@ -114,7 +114,7 @@ export default class Diagnose extends Command {
                 if (result !== '') {
                   this.error(errorMessage);
                 }
-                
+
               })
             })
           })
