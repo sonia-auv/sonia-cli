@@ -55,11 +55,11 @@ export default class Diagnose extends Command {
     const platforms: IPlatform[] = [];
     let deviceName: string | undefined;
     if (args.platform) {
-      const platform = Config.find(x => x.name == args.platform)!;
+      const platform = FilteredPlatforms.find(x => x.name == args.platform)!;
       platforms.push(platform)
 
       if (args.device) {
-        const device = platform.devices.find(x => x.name === args.device);
+        const device = platform.devices.find(x => x.name === args.device && x.diagnose);
 
         if (!device) {
           throw "device is not valid for this platform";
@@ -70,7 +70,7 @@ export default class Diagnose extends Command {
       }
 
     } else {
-      platforms.push(...Config);
+      platforms.push(...FilteredPlatforms);
     }
     return { platforms, deviceName };
   }
