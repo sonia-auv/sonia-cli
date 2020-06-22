@@ -25,7 +25,7 @@
       user: sonia
       usbCamFrontId: 1e10:3300
       usbCamBottomId: 1e10:3300
-      usbIMUId: 1e10:3300
+      usbImuId: 1e10:3300
       usbHydroId: 1e10:3300
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
