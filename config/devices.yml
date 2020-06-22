@@ -29,6 +29,13 @@
           - name: "Ping {{platform.name}} {{device.name}}"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
+      execute:
+        - name: ssh
+          cmd: ssh -X nvidia@{{device.ip}} #TODO!!
+        - name: shutdown
+          cmd: ssh -X nvidia@{{device.ip}} #TODO!!
+        - name: reboot
+          cmd: ssh -X nvidia@{{device.ip}} #TODO!!
     - name: sonar
       ip: 192.168.0.12
       diagnose:
