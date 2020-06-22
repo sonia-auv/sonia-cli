@@ -51,11 +51,11 @@
             cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbHydroId}}'"
       execute:
         - name: ssh
-          cmd: ssh -X {{device.user}}@{{device.ip}} #TODO!!
+          cmd: ssh -X {{device.user}}@{{device.ip}}
         - name: shutdown
-          cmd: ssh -X {{device.user}}@{{device.ip}} #TODO!!
+          cmd: ssh -X {{device.user}}@{{device.ip}} sudo shutdown now
         - name: reboot
-          cmd: ssh -X {{device.user}}@{{device.ip}} #TODO!!
+          cmd: ssh -X {{device.user}}@{{device.ip}} sudo reboot now
     - name: dvl
       ip: 192.168.0.12
       diagnose:
@@ -117,11 +117,11 @@
             cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbHydroId}}'"
       execute:
         - name: ssh
-          cmd: ssh -X {{device.user}}@{{device.ip}} #TODO!!
+          cmd: ssh -X {{device.user}}@{{device.ip}}
         - name: shutdown
-          cmd: ssh -X {{device.user}}@{{device.ip}} #TODO!!
+          cmd: ssh -X {{device.user}}@{{device.ip}} sudo shutdown now
         - name: reboot
-          cmd: ssh -X {{device.user}}@{{device.ip}} #TODO!!
+          cmd: ssh -X {{device.user}}@{{device.ip}} sudo reboot now
     - name: dvl
       ip: 192.168.0.32
       diagnose:
