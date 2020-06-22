@@ -62,7 +62,7 @@
         actions:
           - name: "{{platform.name}} {{device.name}} available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ssh {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
     - name: bottom-camera
       ip: 192.168.0.11
       user: sonia
@@ -73,7 +73,7 @@
         actions:
           - name: "{{platform.name}} {{device.name}} available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ssh {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
 
 - name: auv8
   devices:
@@ -127,7 +127,7 @@
         actions:
           - name: "{{platform.name}} {{device.name}} available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ssh {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
     - name: bottom-camera
       ip: 192.168.0.31
       user: sonia
@@ -138,4 +138,4 @@
         actions:
           - name: "{{platform.name}} {{device.name}} available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
-            cmd: "ssh {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
+            cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.id}}'"
