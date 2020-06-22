@@ -77,12 +77,7 @@ export default class Diagnose extends Command {
 
   async run() {
     const { args, flags } = this.parse(Diagnose);
-
     const { platforms, deviceName } = this.parseArgs(args);
-
-    // console.log("Platform: ", platforms);
-    // console.log("Device: ", deviceName);
-
     const tasks = new Listr({ concurrent: true });
 
     platforms.forEach(platform => {
@@ -102,7 +97,6 @@ export default class Diagnose extends Command {
           actions.forEach(action => {
             const name = action.name.replace(actionExpression, (_, group1) => eval(group1));
             const cmd = action.cmd.replace(actionExpression, (_, group1) => eval(group1));
-            const successMessage = action.successMessage.replace(actionExpression, (_, group1) => eval(group1));
             const errorMessage = action.errorMessage.replace(actionExpression, (_, group1) => eval(group1));
 
             tasks.add({
