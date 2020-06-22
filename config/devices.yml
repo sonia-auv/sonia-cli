@@ -4,11 +4,9 @@
       ip: 192.168.0.1
       diagnose:
         name: Validate {{platform.name}} router availability
-        successMessage: "Diagnosed {{platform.name}} {{device.name}} successfully"
         errorMessage: "An error occur while diagnosing {{platform.name}}"
         actions:
           - name: "Ping {{platform.name}} {{device.name}}"
-            successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
 - name: auv7
@@ -17,33 +15,27 @@
       ip: 192.168.0.10
       diagnose:
         name: Validate {{platform.name}} {{device.name}} availability
-        successMessage: "Diagnosed {{platform.name}} {{device.name}} successfully"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
         actions:
           - name: "Ping {{platform.name}} {{device.name}}"
-            successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
     - name: computer
       ip: 192.168.0.11
       diagnose:
         name: Validate {{platform.name}} {{device.name}} availability
-        successMessage: "Diagnosed {{platform.name}} {{device.name}} successfully"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
         actions:
           - name: "Ping {{platform.name}} {{device.name}}"
-            successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
     - name: sonar
       ip: 192.168.0.12
       diagnose:
         name: Validate {{platform.name}} {{device.name}} availability
-        successMessage: "Diagnosed {{platform.name}} {{device.name}} successfully"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
         actions:
           - name: "Ping {{platform.name}} {{device.name}}"
-            successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
 - name: auv8
@@ -52,32 +44,26 @@
       ip: 192.168.0.30
       diagnose:
         name: Validate {{platform.name}} {{device.name}} availability
-        successMessage: "Diagnosed {{platform.name}} {{device.name}} successfully"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
         actions:
           - name: "Ping {{platform.name}} {{device.name}}"
-            successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
     - name: computer
       ip: 192.168.0.31
       diagnose:
         name: Validate {{platform.name}} {{device.name}} availability
-        successMessage: "Diagnosed {{platform.name}} {{device.name}} successfully"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
         actions:
           - name: "Ping {{platform.name}} {{device.name}}"
-            successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
     - name: sonar
       ip: 192.168.0.32
       diagnose:
         name: Validate {{platform.name}} {{device.name}} availability
-        successMessage: "Diagnosed {{platform.name}} {{device.name}} successfully"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
         actions:
           - name: "Ping {{platform.name}} {{device.name}}"
-            successMessage: "{{platform.name}} {{device.name}} is available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
