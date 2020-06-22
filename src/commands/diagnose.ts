@@ -1,6 +1,6 @@
 import { Command, flags } from '@oclif/command'
 import { Config } from '../helper/platformsConfig'
-import { IPlatform } from '../models/config'
+import { IPlatform, IDiagnoseAction } from '../models/config'
 import { exception, error } from 'console'
 import * as Listr from 'listr'
 import { command } from 'execa'
@@ -75,7 +75,7 @@ export default class Diagnose extends Command {
     return { platforms, deviceName };
   }
 
-  plaform?: IPlatform;
+  platform?: IPlatform;
 
   async run() {
     const { args, flags } = this.parse(Diagnose);
@@ -85,7 +85,7 @@ export default class Diagnose extends Command {
 
     platforms.forEach(platform => {
 
-      this.plaform = platform;
+      this.platform = platform;
 
       const devices = platform.devices.filter(x => deviceName === undefined || x.name === deviceName);
 
@@ -103,31 +103,29 @@ export default class Diagnose extends Command {
 
           const name = device.name.replace(actionExpression, (_, group1) => eval(group1))
 
+          // Loop through every actions contained in a device
           actions.forEach(action => {
             const name = action.name.replace(actionExpression, (_, group1) => eval(group1));
             const cmd = action.cmd.replace(actionExpression, (_, group1) => eval(group1));
             const errorMessage = action.errorMessage.replace(actionExpression, (_, group1) => eval(group1));
 
+            // Create and queue actions as task
             tasks.add({
               title: name,
               task: () => command(cmd).catch(result => {
                 if (result !== '') {
                   this.error(errorMessage);
                 }
-                
+
               })
             })
           })
-
           deviceTasks.add({
             title: name,
             task: () => tasks
           });
-
         }
-
       });
-
       platformTasks.add({
         title: platform.name,
         task: () => deviceTasks
