@@ -89,8 +89,6 @@ export default class Diagnose extends Command {
 
       const devices = platform.devices.filter(x => deviceName === undefined || x.name === deviceName);
 
-      const computer = platform.devices.filter(x => x.name === "computer");
-
       const deviceTasks = new Listr({ concurrent: true, exitOnError: false });
 
       devices.forEach(device => {
@@ -105,11 +103,13 @@ export default class Diagnose extends Command {
 
           const name = device.name.replace(actionExpression, (_, group1) => eval(group1))
 
+          // Loop through every actions contained in a device
           actions.forEach(action => {
             const name = action.name.replace(actionExpression, (_, group1) => eval(group1));
             const cmd = action.cmd.replace(actionExpression, (_, group1) => eval(group1));
             const errorMessage = action.errorMessage.replace(actionExpression, (_, group1) => eval(group1));
 
+            // Create and queue actions as task
             tasks.add({
               title: name,
               task: () => command(cmd).catch(result => {
