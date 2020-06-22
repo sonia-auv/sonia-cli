@@ -1,9 +1,5 @@
 import { Command, flags } from '@oclif/command'
 import { Config } from '../helper/platformsConfig'
-import { IPlatform } from '../models/config'
-import { exception, error } from 'console'
-import * as Listr from 'listr'
-import { command } from 'execa'
 import { execSync } from 'child_process'
 
 const actionExpression = new RegExp("\\{\\{(.*?)\\}\\}", "g");
