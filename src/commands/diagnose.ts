@@ -130,6 +130,8 @@ export default class Diagnose extends Command {
 
     });
 
+    console.log("Starting diagnose command with specified arguments:");
+
     platformTasks.run().catch(err => {
       console.log("Diagnose command failed. Please check error messages.");
     });
