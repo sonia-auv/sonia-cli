@@ -83,7 +83,7 @@ export default class Diagnose extends Command {
     // console.log("Platform: ", platforms);
     // console.log("Device: ", deviceName);
 
-    const tasks = new Listr();
+    const tasks = new Listr({ concurrent: true });
 
     platforms.forEach(platform => {
 
@@ -99,8 +99,6 @@ export default class Diagnose extends Command {
 
           const actions = diagnose.actions;
 
-
-
           actions.forEach(action => {
             const name = action.name.replace(actionExpression, (_, group1) => eval(group1));
             const cmd = action.cmd.replace(actionExpression, (_, group1) => eval(group1));
@@ -115,8 +113,6 @@ export default class Diagnose extends Command {
                 }
               })
             })
-
-
             // console.log("Name:", name);
           })
 
