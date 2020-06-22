@@ -49,6 +49,13 @@
           - name: "{{platform.name}} hydrophones available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbHydroId}}'"
+      execute:
+        - name: ssh
+          cmd: ssh -X {{device.user}}@{{device.ip}}
+        - name: shutdown
+          cmd: ssh -X {{device.user}}@{{device.ip}} sudo shutdown now
+        - name: reboot
+          cmd: ssh -X {{device.user}}@{{device.ip}} sudo reboot now
 
     - name: dvl
       ip: 192.168.0.12
@@ -109,6 +116,14 @@
           - name: "{{platform.name}} hydrophones available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbHydroId}}'"
+      execute:
+        - name: ssh
+          cmd: ssh -X {{device.user}}@{{device.ip}}
+        - name: shutdown
+          cmd: ssh -X {{device.user}}@{{device.ip}} sudo shutdown now
+        - name: reboot
+          cmd: ssh -X {{device.user}}@{{device.ip}} sudo reboot now
+
     - name: dvl
       ip: 192.168.0.32
       diagnose:
