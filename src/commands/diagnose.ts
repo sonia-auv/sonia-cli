@@ -7,12 +7,6 @@ import { command } from 'execa'
 
 
 const actionExpression = new RegExp("\\{\\{(.*?)\\}\\}", "g");
-
-const replacement = () => {
-  console.log(replacement.caller);
-  return (_: string, group1: string) => eval(group1);
-};
-
 const FilteredPlatforms = Config.filter(x => x.devices.find(y => y.diagnose !== undefined) !== undefined);
 
 export default class Diagnose extends Command {
