@@ -1,7 +1,7 @@
 import { Command, flags } from '@oclif/command'
 import { Config } from '../helper/platformsConfig'
 import { IPlatform } from '../models/config'
-import { exception } from 'console'
+import { exception, error } from 'console'
 import * as Listr from 'listr'
 import { command } from 'execa'
 
@@ -78,13 +78,16 @@ export default class Diagnose extends Command {
   async run() {
     const { args, flags } = this.parse(Diagnose);
     const { platforms, deviceName } = this.parseArgs(args);
-    const tasks = new Listr({ concurrent: true });
+
+    const platformTasks = new Listr({ concurrent: true, exitOnError: false });
 
     platforms.forEach(platform => {
 
       this.plaform = platform;
 
       const devices = platform.devices.filter(x => deviceName === undefined || x.name === deviceName);
+
+      const deviceTasks = new Listr({ concurrent: true, exitOnError: false });
 
       devices.forEach(device => {
 
@@ -93,6 +96,8 @@ export default class Diagnose extends Command {
         if (diagnose !== undefined) {
 
           const actions = diagnose.actions;
+
+          const tasks = new Listr();
 
           actions.forEach(action => {
             const name = action.name.replace(actionExpression, (_, group1) => eval(group1));
@@ -103,26 +108,33 @@ export default class Diagnose extends Command {
               title: name,
               task: () => command(cmd).catch(result => {
                 if (result !== '') {
-                  throw new Error(errorMessage);
+                  this.error(errorMessage);
                 }
               })
             })
-            // console.log("Name:", name);
           })
+
+          deviceTasks.add({
+            title: device.name,
+            task: () => tasks
+          });
 
         }
 
       });
 
+      platformTasks.add({
+        title: platform.name,
+        task: () => deviceTasks
+      });
+
     });
 
-    tasks.run().catch(err => {
-      console.error(err);
+    platformTasks.run().catch(err => {
+      console.log("Diagnose command failed. Please check error messages.");
     });
 
   }
 
-  async catch(err: any) {
-    console.error(`Error: ${err}`);
-  }
+
 }
