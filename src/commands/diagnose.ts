@@ -13,6 +13,8 @@ const replacement = () => {
   return (_: string, group1: string) => eval(group1);
 };
 
+const FilteredPlatforms = Config.filter(x => x.devices.find(y => y.diagnose !== undefined) !== undefined);
+
 export default class Diagnose extends Command {
   static description = 'Diagnose the system, specific platform and/or device(s)'
 
@@ -33,12 +35,12 @@ export default class Diagnose extends Command {
   static args = [
     {
       name: 'platform',
-      options: Config.map(x => x.name),
+      options: FilteredPlatforms.map(x => x.name),
       description: "Platform to target. None = all"
     },
     {
       name: 'device',
-      options: [...new Set(Config.map(x => x.devices).flat(1).map(x => x.name))],
+      options: [...new Set(FilteredPlatforms.map(x => x.devices).flat(1).map(x => x.name))],
       description: "Device to target (must be contain in specified platform). None = all"
     }
   ]
