@@ -99,6 +99,8 @@ export default class Diagnose extends Command {
 
           const tasks = new Listr();
 
+          const name = device.name.replace(actionExpression, (_, group1) => eval(group1))
+
           actions.forEach(action => {
             const name = action.name.replace(actionExpression, (_, group1) => eval(group1));
             const cmd = action.cmd.replace(actionExpression, (_, group1) => eval(group1));
@@ -110,12 +112,13 @@ export default class Diagnose extends Command {
                 if (result !== '') {
                   this.error(errorMessage);
                 }
+                
               })
             })
           })
 
           deviceTasks.add({
-            title: device.name,
+            title: name,
             task: () => tasks
           });
 
