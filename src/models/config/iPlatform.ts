@@ -1,6 +1,6 @@
-import { IDevice } from './iDevice'
+import {IDevice} from './iDevice'
 
 export interface IPlatform {
-    name: string
-    devices: IDevice[]
+    name: string;
+    devices: IDevice[];
 }

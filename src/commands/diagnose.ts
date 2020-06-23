@@ -1,139 +1,155 @@
-import { Command, flags } from '@oclif/command'
-import { Config } from '../helper/platformsConfig'
-import { IPlatform, IDiagnoseAction } from '../models/config'
-import { exception, error } from 'console'
+import {Command, flags} from '@oclif/command'
+import {Config} from '../helper/platformsConfig'
+import {IPlatform} from '../models/config'
 import * as Listr from 'listr'
-import { command } from 'execa'
+import {command} from 'execa'
 
-
-const actionExpression = new RegExp("\\{\\{(.*?)\\}\\}", "g");
-const FilteredPlatforms = Config.filter(x => x.devices.find(y => y.diagnose !== undefined) !== undefined);
+const actionExpression = new RegExp('\\{\\{(.*?)\\}\\}', 'g')
+const FilteredPlatforms = Config.filter(
+  x => x.devices.find(y => y.diagnose !== undefined) !== undefined
+)
 
 export default class Diagnose extends Command {
-  static description = 'Diagnose the system, specific platform and/or device(s)'
-
-
+  static description =
+    'Diagnose the system, specific platform and/or device(s)';
 
   static examples = [
-    `$ sonia diagnose`,
-    `$ sonia diagnose dockbox`,
-    `$ sonia diagnose auv7`,
-    `$ sonia diagnose auv7 dvl`,
-    `$ sonia diagnose auv8 computer`,
-  ]
+    '$ sonia diagnose',
+    '$ sonia diagnose dockbox',
+    '$ sonia diagnose auv7',
+    '$ sonia diagnose auv7 dvl',
+    '$ sonia diagnose auv8 computer',
+  ];
 
   static flags = {
-    help: flags.help({ char: 'h' }),
-  }
+    help: flags.help({char: 'h'}),
+  };
 
   static args = [
     {
       name: 'platform',
       options: FilteredPlatforms.map(x => x.name),
-      description: "Platform to target. None = all"
+      description: 'Platform to target. None = all',
     },
     {
       name: 'device',
-      options: [...new Set(FilteredPlatforms.map(x => x.devices).flat(1).map(x => x.name))],
-      description: "Device to target (must be contain in specified platform). None = all"
-    }
-  ]
+      options: [
+        ...new Set(
+          FilteredPlatforms.map(x => x.devices)
+          .flat(1)
+          .map(x => x.name)
+        ),
+      ],
+      description:
+        'Device to target (must be contain in specified platform). None = all',
+    },
+  ];
 
   /**
    * Parse args and return
-   * @param args
-   * @returns platforms   Platforms to diagnose
-   * @returns deviceName  Specific device or undefined for all devices
+   * @param args {string[]}  arguments
+   * @returns {IPlatform} platforms   Platforms to diagnose
+   * @returns {string} deviceName  Specific device or undefined for all devices
    */
-  parseArgs(args: { [name: string]: any; }) {
-    const platforms: IPlatform[] = [];
-    let deviceName: string | undefined;
+  parseArgs(args: { [name: string]: any }) {
+    const platforms: IPlatform[] = []
+    let deviceName: string | undefined
     if (args.platform) {
-      const platform = FilteredPlatforms.find(x => x.name == args.platform)!;
+      const platform = FilteredPlatforms.find(x => x.name === args.platform)!
       platforms.push(platform)
 
       if (args.device) {
-        const device = platform.devices.find(x => x.name === args.device && x.diagnose);
+        const device = platform.devices.find(
+          x => x.name === args.device && x.diagnose
+        )
 
         if (!device) {
-          throw "device is not valid for this platform";
+          throw 'device is not valid for this platform'
         }
 
-        deviceName = args.device;
-
+        deviceName = args.device
       }
-
     } else {
-      platforms.push(...FilteredPlatforms);
+      platforms.push(...FilteredPlatforms)
     }
-    return { platforms, deviceName };
+    return {platforms, deviceName}
   }
 
   platform?: IPlatform;
 
   async run() {
-    const { args, flags } = this.parse(Diagnose);
-    const { platforms, deviceName } = this.parseArgs(args);
+    const {args, flags} = this.parse(Diagnose)
+    const {platforms, deviceName} = this.parseArgs(args)
 
-    const platformTasks = new Listr({ concurrent: true, exitOnError: false });
+    const platformTasks = new Listr({
+      concurrent: true,
+      exitOnError: false,
+    })
 
     platforms.forEach(platform => {
+      this.platform = platform
 
-      this.platform = platform;
+      const devices = platform.devices.filter(
+        x => deviceName === undefined || x.name === deviceName
+      )
 
-      const devices = platform.devices.filter(x => deviceName === undefined || x.name === deviceName);
-
-      const deviceTasks = new Listr({ concurrent: true, exitOnError: false });
+      const deviceTasks = new Listr({
+        concurrent: true,
+        exitOnError: false,
+      })
 
       devices.forEach(device => {
-
-        const diagnose = device.diagnose;
+        const diagnose = device.diagnose
 
         if (diagnose !== undefined) {
+          const actions = diagnose.actions
 
-          const actions = diagnose.actions;
+          const tasks = new Listr()
 
-          const tasks = new Listr();
-
-          const name = device.name.replace(actionExpression, (_, group1) => eval(group1))
+          const name = device.name.replace(actionExpression, (_, group1) =>
+            eval(group1)
+          )
 
           // Loop through every actions contained in a device
           actions.forEach(action => {
-            const name = action.name.replace(actionExpression, (_, group1) => eval(group1));
-            const cmd = action.cmd.replace(actionExpression, (_, group1) => eval(group1));
-            const errorMessage = action.errorMessage.replace(actionExpression, (_, group1) => eval(group1));
+            const name = action.name.replace(actionExpression, (_, group1) =>
+              eval(group1)
+            )
+            const cmd = action.cmd.replace(actionExpression, (_, group1) =>
+              eval(group1)
+            )
+            const errorMessage = action.errorMessage.replace(
+              actionExpression,
+              (_, group1) => eval(group1)
+            )
 
             // Create and queue actions as task
             tasks.add({
               title: name,
-              task: () => command(cmd).catch(result => {
-                if (result !== '') {
-                  this.error(errorMessage);
-                }
-
-              })
+              task: () =>
+                command(cmd).catch(result => {
+                  if (result !== '') {
+                    this.error(errorMessage)
+                  }
+                }),
             })
           })
           deviceTasks.add({
             title: name,
-            task: () => tasks
-          });
+            task: () => tasks,
+          })
         }
-      });
+      })
       platformTasks.add({
         title: platform.name,
-        task: () => deviceTasks
-      });
+        task: () => deviceTasks,
+      })
+    })
 
-    });
-
-    console.log("Starting diagnose command with specified arguments:");
+    console.log('Starting diagnose command with specified arguments:')
 
     platformTasks.run().catch(err => {
-      console.log("Diagnose command failed. Please check error messages.");
-    });
-
+      console.log('Diagnose command failed. Please check error messages.')
+    })
   }
-
-
 }
