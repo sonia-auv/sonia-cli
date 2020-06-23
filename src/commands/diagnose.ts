@@ -78,7 +78,7 @@ export default class Diagnose extends Command {
   platform?: IPlatform;
 
   async run() {
-    const {args, flags} = this.parse(Diagnose)
+    const {args} = this.parse(Diagnose)
     const {platforms, deviceName} = this.parseArgs(args)
 
     const platformTasks = new Listr({
@@ -127,8 +127,8 @@ export default class Diagnose extends Command {
             tasks.add({
               title: name,
               task: () =>
-                command(cmd).catch(result => {
-                  if (result !== '') {
+                command(cmd).catch(error => {
+                  if (error !== '') {
                     this.error(errorMessage)
                   }
                 }),
@@ -146,10 +146,10 @@ export default class Diagnose extends Command {
       })
     })
 
-    console.log('Starting diagnose command with specified arguments:')
+    this.log('Starting diagnose command with specified arguments:')
 
-    platformTasks.run().catch(err => {
-      console.log('Diagnose command failed. Please check error messages.')
+    platformTasks.run().catch(() => {
+      this.log('Diagnose command failed. Please check error messages.')
     })
   }
 }

@@ -1,4 +1,15 @@
 {
-  "extends": ["oclif", "oclif-typescript"],
-  "rules": { "no-eval": 0 }
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "oclif",
+    "oclif-typescript"
+  ],
+  "rules": {
+    "no-eval": 0,
+    "no-throw-literal": 1,
+    "no-console": 2
+  }
 }
