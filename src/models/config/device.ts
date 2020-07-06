@@ -1,5 +1,4 @@
-import {DiagnoseConfig} from './diagnose-config'
-import {ExecuteConfig} from './execute-config'
+import { DiagnoseConfig, ExecuteConfig } from '.';
 
 export interface Device {
   name: string;
