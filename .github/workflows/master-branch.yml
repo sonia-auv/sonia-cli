@@ -37,8 +37,8 @@ jobs:
     needs: [build-and-test, publish-npm]
     steps:
       - uses: actions/checkout@v2
-      - name: Set Target version
-        run: echo '::set-env name=TARGET_VERSION::'node -pe "require('./package.json').version"
+      - name: Set Target Version
+        run: echo '::set-env name=TARGET_VERSION::'$(cat package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
       - name: Create Git Tag
         run: |
           git tag ${TARGET_VERSION}
