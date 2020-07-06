@@ -31,25 +31,10 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
-  publish-gpr:
-    name: "Publish to Github Packages"
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
   create-release:
     name: "Create Github Release"
     runs-on: ubuntu-latest
-    needs: [build-and-test, publish-npm, publish-gpr]
+    needs: [build-and-test, publish-npm]
     steps:
       - uses: actions/checkout@v2
       - name: Set Target version
@@ -74,7 +59,7 @@ jobs:
   notify-success:
     name: "Notify Slack - Success"
     runs-on: ubuntu-latest
-    needs: [build-and-test, publish-npm, publish-gpr, create-release]
+    needs: [build-and-test, publish-npm, create-release]
     if: success()
     steps:
       - name: Notify Slack Success
@@ -89,7 +74,7 @@ jobs:
   notify-fail:
     name: "Notify Slack - Failure"
     runs-on: ubuntu-latest
-    needs: [build-and-test, publish-npm, publish-gpr, create-release]
+    needs: [build-and-test, publish-npm, create-release]
     if: failure()
     steps:
       - name: Notify Slack Fail
