@@ -1,12 +1,12 @@
 {
   "name": "sonia-auv-cli",
   "description": "SONIA AUV CLI Tools",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "SONIA AUV Team",
   "bin": {
     "sonia": "./bin/run"
   },
-  "bugs": "https://github.com/sonia-auv/sonia-cli/issues",
+  "bugs": "https://github.com/sonia-auv/sonia-auv-cli/issues",
   "dependencies": {
     "@oclif/command": "^1.6.1",
     "@oclif/config": "^1.15.1",
@@ -45,7 +45,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/sonia-auv/sonia-cli",
+  "homepage": "https://github.com/sonia-auv/sonia-auv-cli",
   "keywords": [
     "oclif"
   ],
