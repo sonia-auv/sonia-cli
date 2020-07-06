@@ -112,8 +112,8 @@ export default class Diagnose extends Command {
             // Create and queue actions as task
             tasks.add({
               title: name,
-              task: () => command(cmd).catch(result => {
-                if (result !== '') {
+              task: () => command(cmd).catch(error => {
+                if (error.failed === true) {
                   this.error(errorMessage);
                 }
 
