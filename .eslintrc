@@ -4,7 +4,7 @@
     "oclif-typescript"
   ],
   "rules": {
-    "no-console": 2,
+    "no-console": 0,
     "no-eval": 0
   }
 }
