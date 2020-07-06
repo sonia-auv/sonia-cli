@@ -1,7 +1,7 @@
 {
   "name": "sonia-auv-cli",
   "description": "SONIA AUV CLI Tools",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "SONIA AUV Team",
   "bin": {
     "sonia": "./bin/run"
@@ -59,7 +59,7 @@
       "@oclif/plugin-autocomplete"
     ]
   },
-  "repository": "sonia-auv/sonia-cli",
+  "repository": "sonia-auv/sonia-auv-cli",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc --fix",
