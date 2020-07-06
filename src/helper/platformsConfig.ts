@@ -1,14 +1,14 @@
 import { readFileSync } from 'fs';
 import { safeLoad } from 'js-yaml';
-import { IPlatform } from '../models/config';
+import { Platform } from '../models/config';
 
 
 export class PlatformsConfig {
 
-    config: IPlatform[];
+    config: Platform[];
 
     constructor(configFilePath: string) {
-        const doc = safeLoad(readFileSync(configFilePath, 'utf8')) as IPlatform[];
+        const doc = safeLoad(readFileSync(configFilePath, 'utf8')) as Platform[];
         this.config = doc;
     }
 

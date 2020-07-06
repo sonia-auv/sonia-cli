@@ -1,4 +1,4 @@
-export { IDiagnoseAction } from './iDiagnoseAction';
-export { IDevice } from './iDevice';
-export { IDiagnoseConfig } from './iDiagnoseConfig';
-export { IPlatform } from './iPlatform';
+export { DiagnoseAction } from './DiagnoseAction';
+export { Device } from './Device';
+export { DiagnoseConfig } from './DiagnoseConfig';
+export { Platform } from './Platform';

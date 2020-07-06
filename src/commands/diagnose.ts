@@ -1,6 +1,6 @@
 import { Command, flags } from '@oclif/command'
 import { Config } from '../helper/platformsConfig'
-import { IPlatform, IDiagnoseAction } from '../models/config'
+import { Platform, DiagnoseAction } from '../models/config'
 import { exception, error } from 'console'
 import * as Listr from 'listr'
 import { command } from 'execa'
@@ -52,7 +52,7 @@ export default class Diagnose extends Command {
    * @returns deviceName  Specific device or undefined for all devices
    */
   parseArgs(args: { [name: string]: any; }) {
-    const platforms: IPlatform[] = [];
+    const platforms: Platform[] = [];
     let deviceName: string | undefined;
     if (args.platform) {
       const platform = FilteredPlatforms.find(x => x.name == args.platform)!;
@@ -75,7 +75,7 @@ export default class Diagnose extends Command {
     return { platforms, deviceName };
   }
 
-  platform?: IPlatform;
+  platform?: Platform;
 
   async run() {
     const { args, flags } = this.parse(Diagnose);
