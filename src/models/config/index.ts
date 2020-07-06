@@ -1,4 +1,5 @@
-export { DiagnoseAction } from './DiagnoseAction';
-export { Device } from './Device';
-export { DiagnoseConfig } from './DiagnoseConfig';
-export { Platform } from './Platform';
+export { ExecuteConfig } from './execute-config'
+export { DiagnoseAction } from './diagnose-action'
+export { Device } from './device'
+export { DiagnoseConfig } from './diagnose-config'
+export { Platform } from './platform'
