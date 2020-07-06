@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "oclif",
+    "oclif-typescript"
+  ],
+  "rules": {
+    "no-console": 0,
+    "no-eval": 0
+  }
+}
