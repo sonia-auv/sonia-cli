@@ -1,4 +1,4 @@
-export interface IExecuteConfig {
+export interface ExecuteConfig {
     name: string;
     cmd: string;
 }
