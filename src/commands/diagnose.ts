@@ -1,16 +1,10 @@
 import {Command, flags} from '@oclif/command'
 import {Config} from '../helper/platforms-config'
-import {Platform, DiagnoseAction} from '../models/config'
-import {exception, error} from 'console'
+import {Platform} from '../models/config'
 import * as Listr from 'listr'
 import {command} from 'execa'
 
 const actionExpression = new RegExp('\\{\\{(.*?)\\}\\}', 'g')
-
-const replacement = () => {
-  console.log(replacement.caller)
-  return (_: string, group1: string) => eval(group1)
-}
 
 const FilteredPlatforms = Config.filter(x => x.devices.find(y => y.diagnose !== undefined) !== undefined)
 
@@ -44,22 +38,22 @@ export default class Diagnose extends Command {
 
   /**
    * Parse args and return
-   * @param args
-   * @returns platforms   Platforms to diagnose
-   * @returns deviceName  Specific device or undefined for all devices
+   * @param {string[]} args Additional diagnose command arguments
+   * @returns {Platform[]} platforms Platforms to diagnose
+   * @returns {string} deviceName Specific device or undefined for all devices
    */
   parseArgs(args: { [name: string]: any }) {
     const platforms: Platform[] = []
     let deviceName: string | undefined
     if (args.platform) {
-      const platform = FilteredPlatforms.find(x => x.name == args.platform)!
+      const platform = FilteredPlatforms.find(x => x.name === args.platform)!
       platforms.push(platform)
 
       if (args.device) {
         const device = platform.devices.find(x => x.name === args.device && x.diagnose)
 
         if (!device) {
-          throw 'device is not valid for this platform'
+          throw new Error('device is not valid for this platform')
         }
 
         deviceName = args.device

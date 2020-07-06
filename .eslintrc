@@ -2,5 +2,9 @@
   "extends": [
     "oclif",
     "oclif-typescript"
-  ]
+  ],
+  "rules": {
+    "no-console": 2,
+    "no-eval": 0
+  }
 }
