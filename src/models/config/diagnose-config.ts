@@ -1,4 +1,4 @@
-import {DiagnoseAction} from './DiagnoseAction'
+import {DiagnoseAction} from './diagnose-action'
 
 export interface DiagnoseConfig {
     name: string;

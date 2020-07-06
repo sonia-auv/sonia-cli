@@ -1,5 +1,5 @@
 import {Command, flags} from '@oclif/command'
-import {Config} from '../helper/platformsConfig'
+import {Config} from '../helper/platforms-config'
 import {execSync} from 'child_process'
 
 const actionExpression = new RegExp('\\{\\{(.*?)\\}\\}', 'g')
