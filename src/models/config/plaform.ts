@@ -1,4 +1,4 @@
-import {Device} from './Device'
+import {Device} from './device'
 
 export interface Platform {
     name: string;
