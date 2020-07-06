@@ -1,6 +1,6 @@
-import { Device } from './Device'
+import {Device} from './Device'
 
 export interface Platform {
-    name: string
-    devices: Device[]
+    name: string;
+    devices: Device[];
 }
