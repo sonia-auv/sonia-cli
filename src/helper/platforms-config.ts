@@ -11,4 +11,4 @@ export class PlatformsConfig {
   }
 }
 
-export const Config = new PlatformsConfig('./config/devices.yml').config
+export const Config = new PlatformsConfig('./config/diagnose.yml').config
