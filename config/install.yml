@@ -1,7 +1,7 @@
 - name: local
   variables:
-    - variable:
-    - variable:
+    - key: ROS_MASTER_URI
+    - value:
 
 - name: auv7
 
