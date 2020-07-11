@@ -1,0 +1,8 @@
+- name: local
+  variables:
+    - variable:
+    - variable:
+
+- name: auv7
+
+- name: auv8
