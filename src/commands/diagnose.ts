@@ -6,7 +6,7 @@ import { command } from 'execa'
 
 const actionExpression = new RegExp('\\{\\{(.*?)\\}\\}', 'g')
 
-const FilteredPlatforms = Config.filter(x => x.devices.find(y => y.diagnose !== undefined) !== undefined)
+const filteredPlatforms = Config.filter(x => x.devices.find(y => y.diagnose !== undefined) !== undefined)
 
 export default class Diagnose extends Command {
   static description = 'Diagnose the system, specific platform and/or device(s)'
@@ -26,12 +26,12 @@ export default class Diagnose extends Command {
   static args = [
     {
       name: 'platform',
-      options: FilteredPlatforms.map(x => x.name),
+      options: filteredPlatforms.map(x => x.name),
       description: 'Platform to target. None = all',
     },
     {
       name: 'device',
-      options: [...new Set(FilteredPlatforms.map(x => x.devices).flat(1).map(x => x.name))],
+      options: [...new Set(filteredPlatforms.map(x => x.devices).flat(1).map(x => x.name))],
       description: 'Device to target (must be contain in specified platform). None = all',
     },
   ]
@@ -46,7 +46,7 @@ export default class Diagnose extends Command {
     const platforms: Platform[] = []
     let deviceName: string | undefined
     if (args.platform) {
-      const platform = FilteredPlatforms.find(x => x.name === args.platform)!
+      const platform = filteredPlatforms.find(x => x.name === args.platform)!
       platforms.push(platform)
 
       if (args.device) {
@@ -59,7 +59,7 @@ export default class Diagnose extends Command {
         deviceName = args.device
       }
     } else {
-      platforms.push(...FilteredPlatforms)
+      platforms.push(...filteredPlatforms)
     }
     return { platforms, deviceName }
   }
