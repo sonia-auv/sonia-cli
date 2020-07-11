@@ -2,7 +2,7 @@ import { readFileSync } from 'fs'
 import { safeLoad } from 'js-yaml'
 import { Platform } from '../models/config/diagnose'
 
-export class PlatformsConfig {
+export class EnvironmentConfig {
   config: Platform[];
 
   constructor(configFilePath: string) {
@@ -11,4 +11,4 @@ export class PlatformsConfig {
   }
 }
 
-export const Config = new PlatformsConfig('./config/devices.yml').config
+export const Config = new EnvironmentConfig('./config/install.yml').config

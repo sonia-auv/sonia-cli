@@ -19,7 +19,7 @@ export default class Install extends Command {
   static args = [
     {
       name: 'platform',
-      description: 'Platform to target',
+      description: 'Installation target platform',
     },
   ]
 

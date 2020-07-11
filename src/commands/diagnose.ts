@@ -1,8 +1,8 @@
-import {Command, flags} from '@oclif/command'
-import {Config} from '../helper/platforms-config'
-import {Platform} from '../models/config'
+import { Command, flags } from '@oclif/command'
+import { Config } from '../helper/platforms-config'
+import { Platform } from '../models/config/diagnose'
 import * as Listr from 'listr'
-import {command} from 'execa'
+import { command } from 'execa'
 
 const actionExpression = new RegExp('\\{\\{(.*?)\\}\\}', 'g')
 
@@ -20,7 +20,7 @@ export default class Diagnose extends Command {
   ]
 
   static flags = {
-    help: flags.help({char: 'h'}),
+    help: flags.help({ char: 'h' }),
   }
 
   static args = [
@@ -61,23 +61,23 @@ export default class Diagnose extends Command {
     } else {
       platforms.push(...FilteredPlatforms)
     }
-    return {platforms, deviceName}
+    return { platforms, deviceName }
   }
 
   platform?: Platform;
 
   async run() {
-    const {args} = this.parse(Diagnose)
-    const {platforms, deviceName} = this.parseArgs(args)
+    const { args } = this.parse(Diagnose)
+    const { platforms, deviceName } = this.parseArgs(args)
 
-    const platformTasks = new Listr({concurrent: true, exitOnError: false})
+    const platformTasks = new Listr({ concurrent: true, exitOnError: false })
 
     platforms.forEach(platform => {
       this.platform = platform
 
       const devices = platform.devices.filter(x => deviceName === undefined || x.name === deviceName)
 
-      const deviceTasks = new Listr({concurrent: true, exitOnError: false})
+      const deviceTasks = new Listr({ concurrent: true, exitOnError: false })
 
       devices.forEach(device => {
         const diagnose = device.diagnose
