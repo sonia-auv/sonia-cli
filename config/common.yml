@@ -1,0 +1,42 @@
+- name: dockbox
+  devices:
+    - name: router
+      ip: 192.168.0.1
+
+- name: auv7
+  devices:
+    - name: switch
+      ip: 192.168.0.10
+
+    - name: computer
+      ip: 192.168.0.11
+      user: sonia
+      usbCamFrontId: 1e10:3300
+      usbCamBottomId: 1e10:3300
+      usbImuId: 1e10:3300
+      usbHydroId: 1e10:3300
+
+    - name: dvl
+      ip: 192.168.0.12
+
+    - name: sonar
+      ip: 192.168.0.50
+
+- name: auv8
+  devices:
+    - name: switch
+      ip: 192.168.0.30
+  
+    - name: computer
+      ip: 192.168.0.31
+      user: sonia
+      usbCamFrontId: 1e10:3300
+      usbCamBottomId: 1e10:3300
+      usbImuId: 1e10:3300
+      usbHydroId: 1e10:3300
+
+    - name: dvl
+      ip: 192.168.0.32
+
+    - name: sonar
+      ip: 192.168.0.50

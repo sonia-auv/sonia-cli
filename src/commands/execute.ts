@@ -1,6 +1,6 @@
-import {Command, flags} from '@oclif/command'
-import {Config} from '../helper/platforms-config'
-import {execSync} from 'child_process'
+import { Command, flags } from '@oclif/command'
+import { Config } from '../helper/execute-config'
+import { execSync } from 'child_process'
 
 const actionExpression = new RegExp('\\{\\{(.*?)\\}\\}', 'g')
 
@@ -18,7 +18,7 @@ export default class Execute extends Command {
   ]
 
   static flags = {
-    help: flags.help({char: 'h'}),
+    help: flags.help({ char: 'h' }),
   }
 
   static args = [
@@ -43,7 +43,7 @@ export default class Execute extends Command {
    * @returns {string} deviceName  Specific device or undefined for all devices
    */
   parseArgs(args: { [name: string]: any }) {
-    const {platform: platformName, cmd: cmdName} = args
+    const { platform: platformName, cmd: cmdName } = args
 
     const platform = filteredPlatforms.find(x => x.name === platformName)!
     const device = platform.devices.find(x => x.execute?.find(y => y.name === cmdName))
@@ -54,13 +54,14 @@ export default class Execute extends Command {
 
     const executeConfig = device.execute!.find(x => x.name === cmdName)!
 
-    return {platform, device, executeConfig}
+    return { platform, device, executeConfig }
   }
 
   async run() {
-    const {args} = this.parse(Execute)
+    const { args } = this.parse(Execute)
 
-    const {platform, executeConfig} = this.parseArgs(args) // Device is needed for eval function
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { platform, device, executeConfig } = this.parseArgs(args) // Device is needed for eval function
 
     const platformName = platform.name.replace(actionExpression, (_, group1) => eval(group1))
     const name = executeConfig.name.replace(actionExpression, (_, group1) => eval(group1))
@@ -69,7 +70,7 @@ export default class Execute extends Command {
     console.log(`Starting cmd ${name} on ${platformName}`)
 
     try {
-      execSync(cmd, {stdio: 'inherit'})
+      execSync(cmd, { stdio: 'inherit' })
     } catch (error) {
       // No need to print error message
     }

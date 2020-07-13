@@ -1,5 +1,5 @@
 import { Command, flags } from '@oclif/command'
-import { Config } from '../helper/platforms-config'
+import { Config } from '../helper/diagnose-config'
 import { Platform } from '../models/config/diagnose'
 import * as Listr from 'listr'
 import { command } from 'execa'

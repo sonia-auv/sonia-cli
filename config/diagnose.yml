@@ -1,7 +1,6 @@
 - name: dockbox
   devices:
     - name: router
-      ip: 192.168.0.1
       diagnose:
         name: "Validate {{platform.name}} router availability"
         errorMessage: "An error occur while diagnosing {{platform.name}}"
@@ -12,7 +11,6 @@
 - name: auv7
   devices:
     - name: switch
-      ip: 192.168.0.10
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -21,12 +19,6 @@
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
     - name: computer
-      ip: 192.168.0.11
-      user: sonia
-      usbCamFrontId: 1e10:3300
-      usbCamBottomId: 1e10:3300
-      usbImuId: 1e10:3300
-      usbHydroId: 1e10:3300
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -49,16 +41,8 @@
           - name: "{{platform.name}} hydrophones available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbHydroId}}'"
-      execute:
-        - name: ssh
-          cmd: ssh -X {{device.user}}@{{device.ip}}
-        - name: shutdown
-          cmd: ssh -X {{device.user}}@{{device.ip}} sudo shutdown now
-        - name: reboot
-          cmd: ssh -X {{device.user}}@{{device.ip}} sudo reboot now
 
     - name: dvl
-      ip: 192.168.0.12
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -67,7 +51,6 @@
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
     - name: sonar
-      ip: 192.168.0.50
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -79,7 +62,6 @@
 - name: auv8
   devices:
     - name: switch
-      ip: 192.168.0.30
       diagnose:
         name: Validate {{platform.name}} {{device.name}} availability
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -88,12 +70,6 @@
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
     - name: computer
-      ip: 192.168.0.31
-      user: sonia
-      usbCamFrontId: 1e10:3300
-      usbCamBottomId: 1e10:3300
-      usbImuId: 1e10:3300
-      usbHydroId: 1e10:3300
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -116,16 +92,8 @@
           - name: "{{platform.name}} hydrophones available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbHydroId}}'"
-      execute:
-        - name: ssh
-          cmd: ssh -X {{device.user}}@{{device.ip}}
-        - name: shutdown
-          cmd: ssh -X {{device.user}}@{{device.ip}} sudo shutdown now
-        - name: reboot
-          cmd: ssh -X {{device.user}}@{{device.ip}} sudo reboot now
 
     - name: dvl
-      ip: 192.168.0.32
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -134,7 +102,6 @@
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
     - name: sonar
-      ip: 192.168.0.50
       diagnose:
         name: Validate {{platform.name}} {{device.name}} availability
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
