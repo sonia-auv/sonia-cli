@@ -1,8 +1,6 @@
-import { DiagnoseConfig, ExecuteConfig } from '.'
+import { Device } from '../common/device'
+import { DiagnoseConfig } from '.'
 
-export interface Device {
-  name: string;
-  ip: string;
+export interface DiagnoseDevice extends Device {
   diagnose?: DiagnoseConfig;
-  execute?: ExecuteConfig[];
 }

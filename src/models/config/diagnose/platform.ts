@@ -1,6 +1,8 @@
-import { Device } from './device'
+import { Platform } from '../common/platform'
+import { DiagnoseDevice } from './device'
 
-export interface Platform {
-  name: string;
-  devices: Device[];
+export interface DiagnosePlatform extends Platform {
+
+  devices: DiagnoseDevice[];
+
 }
