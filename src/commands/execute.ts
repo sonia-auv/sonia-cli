@@ -7,14 +7,14 @@ const actionExpression = new RegExp('\\{\\{(.*?)\\}\\}', 'g')
 const filteredPlatforms = Config.filter(x => x.devices.find(y => y.execute))
 
 export default class Execute extends Command {
-  static description = 'Execute a command to a remote device'
+  static description = 'Execute a command to a remote device';
 
   static aliases = ['exec'];
 
   static examples = [
-    '$ sonia execute auv7 ssh',
-    '$ sonia execute auv7 shutdown',
-    '$ sonia execute auv8 reboot',
+    '$ sonia execute auv7 computer ssh',
+    '$ sonia execute auv7 computer shutdown',
+    '$ sonia execute auv8 computer reboot',
   ]
 
   static flags = {
@@ -27,6 +27,12 @@ export default class Execute extends Command {
       options: filteredPlatforms.map(x => x.name),
       required: true,
       description: 'Platform to target',
+    },
+    {
+      name: 'device',
+      options: [...new Set(filteredPlatforms.map(x => x.devices).flat(1).filter(x => x.execute).map(x => x.name))],
+      required: true,
+      description: 'Device to target',
     },
     {
       name: 'cmd',

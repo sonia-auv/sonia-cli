@@ -31,7 +31,7 @@ export default class Diagnose extends Command {
     },
     {
       name: 'device',
-      options: [...new Set(filteredPlatforms.map(x => x.devices).flat(1).map(x => x.name))],
+      options: [...new Set(filteredPlatforms.map(x => x.devices).flat(1).filter(x => x.diagnose).map(x => x.name))],
       description: 'Device to target (must be contain in specified platform). None = all',
     },
   ]
