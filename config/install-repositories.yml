@@ -1,3 +1,5 @@
+- name: "flexbe_app"
+  url: "git@github.com:FlexBE/flexbe_app.git"
 - name: "controller_mission"
   url: "git@github.com:sonia-auv/controller_mission"
 - name: "lib_atlas"
