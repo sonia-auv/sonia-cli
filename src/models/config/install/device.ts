@@ -1,5 +1,5 @@
 import { OS } from './os'
-export interface Device {
-    name: string;
+import { Device } from '../common/device'
+export interface InstallDevice extends Device {
     os?: OS[];
 }
