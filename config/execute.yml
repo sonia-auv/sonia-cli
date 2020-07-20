@@ -1,0 +1,21 @@
+- name: auv7
+  devices:
+    - name: computer
+      execute:
+        - name: ssh
+          cmd: ssh -X {{device.user}}@{{device.ip}}
+        - name: shutdown
+          cmd: ssh -X {{device.user}}@{{device.ip}} sudo shutdown now
+        - name: reboot
+          cmd: ssh -X {{device.user}}@{{device.ip}} sudo reboot now
+
+- name: auv8
+  devices:
+    - name: computer
+      execute:
+        - name: ssh
+          cmd: ssh -X {{device.user}}@{{device.ip}}
+        - name: shutdown
+          cmd: ssh -X {{device.user}}@{{device.ip}} sudo shutdown now
+        - name: reboot
+          cmd: ssh -X {{device.user}}@{{device.ip}} sudo reboot now

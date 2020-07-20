@@ -1,12 +1,12 @@
-import {Command, flags} from '@oclif/command'
-import {Config} from '../helper/platforms-config'
-import {Platform} from '../models/config'
+import { Command, flags } from '@oclif/command'
+import { Config } from '../helper/diagnose-config'
+import { DiagnosePlatform } from '../models/config/diagnose'
 import * as Listr from 'listr'
-import {command} from 'execa'
+import { command } from 'execa'
 
 const actionExpression = new RegExp('\\{\\{(.*?)\\}\\}', 'g')
 
-const FilteredPlatforms = Config.filter(x => x.devices.find(y => y.diagnose !== undefined) !== undefined)
+const filteredPlatforms = Config.filter(x => x.devices.find(y => y.diagnose !== undefined) !== undefined)
 
 export default class Diagnose extends Command {
   static description = 'Diagnose the system, specific platform and/or device(s)'
@@ -20,18 +20,18 @@ export default class Diagnose extends Command {
   ]
 
   static flags = {
-    help: flags.help({char: 'h'}),
+    help: flags.help({ char: 'h' }),
   }
 
   static args = [
     {
       name: 'platform',
-      options: FilteredPlatforms.map(x => x.name),
+      options: filteredPlatforms.map(x => x.name),
       description: 'Platform to target. None = all',
     },
     {
       name: 'device',
-      options: [...new Set(FilteredPlatforms.map(x => x.devices).flat(1).map(x => x.name))],
+      options: [...new Set(filteredPlatforms.map(x => x.devices).flat(1).filter(x => x.diagnose).map(x => x.name))],
       description: 'Device to target (must be contain in specified platform). None = all',
     },
   ]
@@ -43,10 +43,10 @@ export default class Diagnose extends Command {
    * @returns {string} deviceName Specific device or undefined for all devices
    */
   parseArgs(args: { [name: string]: any }) {
-    const platforms: Platform[] = []
+    const platforms: DiagnosePlatform[] = []
     let deviceName: string | undefined
     if (args.platform) {
-      const platform = FilteredPlatforms.find(x => x.name === args.platform)!
+      const platform = filteredPlatforms.find(x => x.name === args.platform)!
       platforms.push(platform)
 
       if (args.device) {
@@ -59,25 +59,25 @@ export default class Diagnose extends Command {
         deviceName = args.device
       }
     } else {
-      platforms.push(...FilteredPlatforms)
+      platforms.push(...filteredPlatforms)
     }
-    return {platforms, deviceName}
+    return { platforms, deviceName }
   }
 
-  platform?: Platform;
+  platform?: DiagnosePlatform;
 
   async run() {
-    const {args} = this.parse(Diagnose)
-    const {platforms, deviceName} = this.parseArgs(args)
+    const { args } = this.parse(Diagnose)
+    const { platforms, deviceName } = this.parseArgs(args)
 
-    const platformTasks = new Listr({concurrent: true, exitOnError: false})
+    const platformTasks = new Listr({ concurrent: true, exitOnError: false })
 
     platforms.forEach(platform => {
       this.platform = platform
 
       const devices = platform.devices.filter(x => deviceName === undefined || x.name === deviceName)
 
-      const deviceTasks = new Listr({concurrent: true, exitOnError: false})
+      const deviceTasks = new Listr({ concurrent: true, exitOnError: false })
 
       devices.forEach(device => {
         const diagnose = device.diagnose
