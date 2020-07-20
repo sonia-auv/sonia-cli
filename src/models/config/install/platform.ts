@@ -1,4 +1,5 @@
 
-export interface Platform {
+export interface Platform extends Platform {
   name: string;
+
 }
