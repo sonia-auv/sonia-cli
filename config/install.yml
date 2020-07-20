@@ -37,9 +37,6 @@
             - name: "Create Sonia Workspace"
               errorMessage: "An error message occurred while creating sonia workspace"
               cmd: "mkdir ~/Workspace/src"
-            - name: "Clone Sonia modules"
-              errorMessage: "An error occurred while cloning sonia modules"
-              cmd: "git clone {{repository.url}} ~/Workspace/src"
 
         - name: darwin
           actions:
@@ -49,6 +46,12 @@
             - name: "Install git"
               errorMessage: "Install Git"
               cmd: "brew install git"
+            - name: "Generate SSH Key"
+              errorMessage: "An error occurred while generating an SSH key"
+              cmd: "ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<y 2>&1 >/dev/null"
+            - name: "Copy SSH key to your github profile"
+              errorMessage: "An error occurred during this step (press enter completed)"
+              cmd: "readline"
             - name: "Install docker"
               errorMessage: "An error occurred while installing docker"
               cmd: "brew cask install docker"
@@ -58,12 +61,59 @@
             - name: "Create Sonia Workspace"
               errorMessage: "An error message occurred while creating sonia workspace"
               cmd: "mkdir ~/Workspace/src"
-            - name: "Clone Sonia modules"
-              errorMessage: "An error occurred while cloning sonia modules"
-              cmd: "git clone {{repository.url}} ~/Workspace/src"
 
         - name: win32
 
 - name: auv7
+  devices:
+    - name: computer
+      os:
+        - name: "linux"
+          actions:
+            - name: "Update system packages"
+              errorMessage: "An error occurred while updating system packages"
+              cmd: "sudo apt update && sudo apt upgrade -y"
+            - name: "Installing docker requirements"
+              errorMessage: "An error occurred while installing docker"
+              cmd: "sudo apt install apt-transport-https ca-certificates curl software-properties-common"
+            - name: "Adding docker to source repository list"
+              errorMessage: "An error occurred while adding docker to os repo list"
+              cmd: "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && sudo add-apt-repository 'deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable' && sudo apt update"
+            - name: "Install Docker"
+              errorMessage: "An error occurred while installing docker"
+              cmd: "sudo apt install docker-ce && sudo systemctl status docker"
+            - name: "Adding docker group membership to current user"
+              errorMessage: "An error occurred while adding docker group to current user"
+              cmd: "sudo usermod -aG docker ${USER} && su - ${USER}"
+            - name: "Install docker-compose"
+              errorMessage: "An error occurred while installing docker-compose"
+            - name: "Docker login"
+              errorMessage: "An error occurred while login to github docker repository"
+              cmd: ""
 
 - name: auv8
+  devices:
+    - name: computer
+      os:
+        - name: "linux"
+          actions:
+            - name: "Update system packages"
+              errorMessage: "An error occurred while updating system packages"
+              cmd: "sudo apt update && sudo apt upgrade -y"
+            - name: "Installing docker requirements"
+              errorMessage: "An error occurred while installing docker"
+              cmd: "sudo apt install apt-transport-https ca-certificates curl software-properties-common"
+            - name: "Adding docker to source repository list"
+              errorMessage: "An error occurred while adding docker to os repo list"
+              cmd: "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && sudo add-apt-repository 'deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable' && sudo apt update"
+            - name: "Install Docker"
+              errorMessage: "An error occurred while installing docker"
+              cmd: "sudo apt install docker-ce && sudo systemctl status docker"
+            - name: "Adding docker group membership to current user"
+              errorMessage: "An error occurred while adding docker group to current user"
+              cmd: "sudo usermod -aG docker ${USER} && su - ${USER}"
+            - name: "Install docker-compose"
+              errorMessage: "An error occurred while installing docker-compose"
+            - name: "Docker login"
+              errorMessage: "An error occurred while login to github docker repository"
+              cmd: ""

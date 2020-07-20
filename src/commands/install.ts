@@ -57,14 +57,14 @@ export default class Install extends Command {
   async run() {
     const { args } = this.parse(Install)
     const { os } = this.parseArgs(args)
-    const actions = os.actions
+    const installActions = os.actions
+    const repoActions = RepoConfig
 
-    const tasks = new Listr({ concurrent: false, exitOnError: false })
-
+    const installTasks = new Listr({ concurrent: false, exitOnError: false })
     const repoTasks = new Listr({ concurrent: false, exitOnError: false })
 
-    actions.forEach(action => {
-      tasks.add({
+    installActions.forEach(action => {
+      installTasks.add({
         title: action.name,
         task: () => command(action.cmd).catch(error => {
           if (error.failed === true) {
@@ -74,12 +74,13 @@ export default class Install extends Command {
       })
     })
 
-    actions.forEach(action => {
-      tasks.add({
+    repoActions.forEach(action => {
+      const cmd = `git clone ${action.url}`
+      repoTasks.add({
         title: action.name,
-        task: () => command(action.cmd).catch(error => {
+        task: () => command(cmd).catch(error => {
           if (error.failed === true) {
-            this.error(action.errorMessage)
+            this.error(`An error occurred while cloning ${action.name} repository`)
           }
         }),
       })
