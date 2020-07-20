@@ -35,19 +35,31 @@ export default class Install extends Command {
     },
   ]
 
-  installEnvironment() {
+  const platformTasks = new Listr({ concurrent: true, exitOnError: false })
 
+  installDocker(os: string) {
+    if (os === 'darwin') {
+
+    } else if (os === 'linux') {
+
+    } else if (os === 'win32') {
+
+    }
   }
 
-  installSystemPackages(env: string) {
+  installPlatform(env: string, os: string) {
     switch (env) {
       case environment.local: {
+        console.log('Env:local')
+
         break
       }
       case environment.auv7: {
+        console.log('Env:auv7')
         break
       }
       case environment.auv8: {
+        console.log('Env:auv8')
         break
       }
     }
@@ -55,7 +67,11 @@ export default class Install extends Command {
 
   async run() {
     const { args } = this.parse(Install)
-    this.parseArgs(args)
+    const targetPlatform = args.platform
+    const targetOS = this.config.platform
+
+    this.installPlatform(targetPlatform, targetArechitecture)
+
     return true
   }
 }
