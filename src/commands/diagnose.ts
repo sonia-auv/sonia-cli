@@ -3,10 +3,23 @@ import { Config } from '../helper/diagnose-config'
 import { DiagnosePlatform } from '../models/config/diagnose'
 import * as Listr from 'listr'
 import { command } from 'execa'
+import { Dictionary } from 'lodash'
 
 const actionExpression = new RegExp('\\{\\{(.*?)\\}\\}', 'g')
 
-const filteredPlatforms = Config.filter(x => x.devices.find(y => y.diagnose !== undefined) !== undefined)
+interface MappedElement<T> {
+  name: string;
+  data: T;
+}
+
+const mapDictionary = <T>(elements: Dictionary<T>): MappedElement<T>[] => Object.entries(elements).map(x => ({ name: x[0], data: x[1] }))
+
+const filteredPlatforms = (() => {
+  const result = mapDictionary(Config).filter(x => mapDictionary(x.data.devices).find(y => y.data.diagnose !== undefined) !== undefined)
+  // console.log(JSON.stringify(result, undefined, 2))
+  return result
+})()
+// //Config.filter(x => x.devices.find(y => y.diagnose !== undefined) !== undefined)
 
 export default class Diagnose extends Command {
   static description = 'Diagnose the system, specific platform and/or device(s)'
@@ -31,7 +44,12 @@ export default class Diagnose extends Command {
     },
     {
       name: 'device',
-      options: [...new Set(filteredPlatforms.map(x => x.devices).flat(1).filter(x => x.diagnose).map(x => x.name))],
+      options: (() => {
+        const toto = filteredPlatforms.map(x => x.data.devices)
+        console.log(JSON.stringify(toto, undefined, 2))
+        const result = filteredPlatforms.map(x => mapDictionary(x.data.devices)).flat(1).filter(x => x.data.diagnose).map(x => x.name)
+        return [...new Set(result)]
+      })(),
       description: 'Device to target (must be contain in specified platform). None = all',
     },
   ]
@@ -43,14 +61,17 @@ export default class Diagnose extends Command {
    * @returns {string} deviceName Specific device or undefined for all devices
    */
   parseArgs(args: { [name: string]: any }) {
-    const platforms: DiagnosePlatform[] = []
+    const platforms: {
+      name: string;
+      data: DiagnosePlatform;
+    }[] = []
     let deviceName: string | undefined
     if (args.platform) {
       const platform = filteredPlatforms.find(x => x.name === args.platform)!
       platforms.push(platform)
 
       if (args.device) {
-        const device = platform.devices.find(x => x.name === args.device && x.diagnose)
+        const device = mapDictionary(platform.data.devices).find(x => x.name === args.device && x.data.diagnose)
 
         if (!device) {
           throw new Error('device is not valid for this platform')
@@ -64,7 +85,7 @@ export default class Diagnose extends Command {
     return { platforms, deviceName }
   }
 
-  platform?: DiagnosePlatform;
+  platform?: MappedElement<DiagnosePlatform>;
 
   async run() {
     const { args } = this.parse(Diagnose)
@@ -75,12 +96,12 @@ export default class Diagnose extends Command {
     platforms.forEach(platform => {
       this.platform = platform
 
-      const devices = platform.devices.filter(x => deviceName === undefined || x.name === deviceName)
+      const devices = mapDictionary(platform.data.devices).filter(x => deviceName === undefined || x.name === deviceName)
 
       const deviceTasks = new Listr({ concurrent: true, exitOnError: false })
 
       devices.forEach(device => {
-        const diagnose = device.diagnose
+        const diagnose = device.data.diagnose
 
         if (diagnose !== undefined) {
           const actions = diagnose.actions

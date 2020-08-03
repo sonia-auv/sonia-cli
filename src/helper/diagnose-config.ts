@@ -4,12 +4,13 @@ import { DiagnosePlatform } from '../models/config/diagnose'
 import { merge } from 'lodash'
 
 export class DiagnoseConfig {
-  config: DiagnosePlatform[];
+  config: { [id: string]: DiagnosePlatform };
 
   constructor(configFolderPath: string) {
-    const docCommon = safeLoad(readFileSync(configFolderPath + '/common.yml', 'utf8')) as DiagnosePlatform[]
-    const docDiagnose = safeLoad(readFileSync(configFolderPath + '/diagnose.yml', 'utf8')) as DiagnosePlatform[]
+    const docCommon = safeLoad(readFileSync(configFolderPath + '/common.yml', 'utf8')) as { [id: string]: DiagnosePlatform }
+    const docDiagnose = safeLoad(readFileSync(configFolderPath + '/diagnose.yml', 'utf8')) as { [id: string]: DiagnosePlatform }
     merge(docCommon, docDiagnose)
+    
     this.config = docCommon
   }
 }

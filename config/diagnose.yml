@@ -1,6 +1,6 @@
-- name: dockbox
+dockbox:
   devices:
-    - name: router
+    router:
       diagnose:
         name: "Validate {{platform.name}} router availability"
         errorMessage: "An error occur while diagnosing {{platform.name}}"
@@ -8,9 +8,9 @@
           - name: "Ping {{platform.name}} {{device.name}}"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
-- name: auv7
+auv7:
   devices:
-    - name: switch
+    switch:
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -18,7 +18,7 @@
           - name: "{{platform.name}} {{device.name}} available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
-    - name: computer
+    computer:
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -42,7 +42,7 @@
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbHydroId}}'"
 
-    - name: dvl
+    dvl:
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -50,7 +50,7 @@
           - name: "{{platform.name}} {{device.name}} available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
-    - name: sonar
+    sonar:
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -59,9 +59,9 @@
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
 
-- name: auv8
+auv8:
   devices:
-    - name: switch
+    switch:
       diagnose:
         name: Validate {{platform.name}} {{device.name}} availability
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -69,7 +69,7 @@
           - name: "{{platform.name}} {{device.name}} available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
-    - name: computer
+    computer:
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -93,7 +93,7 @@
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ssh -o ConnectTimeout=15 {{device.user}}@{{device.ip}} lsusb | grep '{{device.usbHydroId}}'"
 
-    - name: dvl
+    dvl:
       diagnose:
         name: "Validate {{platform.name}} {{device.name}} availability"
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
@@ -101,7 +101,7 @@
           - name: "{{platform.name}} {{device.name}} available"
             errorMessage: "{{platform.name}} {{device.name}} seems to be unavailable"
             cmd: "ping {{device.ip}} -c  5"
-    - name: sonar
+    sonar:
       diagnose:
         name: Validate {{platform.name}} {{device.name}} availability
         errorMessage: "An error occur while diagnosing {{platform.name}} {{device.name}}"
