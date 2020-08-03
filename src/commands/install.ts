@@ -42,7 +42,7 @@ export default class Install extends Command {
 
     const targetPlatform = filteredPlatforms.find(x => x.name === platformName)!
 
-    const otherPlatforms = Config.filter(x => x.name !== platformName)!
+    const platforms = Config.filter(x => x.name !== platformName)!
 
     const device = targetPlatform.devices.find(y => y.name === deviceName)
     // // const device = platform.devices.find(x => x.os?.find(y => y.name === deviceName))
@@ -59,21 +59,19 @@ export default class Install extends Command {
       throw new Error('OS is not valid for this device')
     }
 
-    return { targetPlatform, otherPlatforms, device, os }
+    return { targetPlatform, platforms, device, os }
   }
 
   async run() {
     const { args } = this.parse(Install)
-    const { otherPlatforms, os } = this.parseArgs(args)
+    const { platforms, os } = this.parseArgs(args)
     const installActions = os.actions
     const repoActions = RepoConfig
 
     const installTasks = new Listr({ concurrent: false, exitOnError: false })
     const repoTasks = new Listr({ concurrent: false, exitOnError: false })
 
-    console.log()
-
-    otherPlatforms.reduce()
+    console.log(platforms[0].devices)
 
     installActions.forEach(action => {
       // const cmd = action.cmd.replace(actionExpression,)
