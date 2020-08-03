@@ -3,6 +3,9 @@ import * as Listr from 'listr'
 import { command } from 'execa'
 import { Config } from '../helper/install-config'
 import { Config as RepoConfig } from '../helper/repository-config'
+import { filter } from 'lodash'
+
+const actionExpression = new RegExp('\\{\\{(.*?)\\}\\}', 'g')
 
 const filteredPlatforms = Config.filter(x => x.devices.find(y => y.os !== undefined) !== undefined)
 
@@ -37,9 +40,14 @@ export default class Install extends Command {
   parseArgs(args: { [name: string]: any }) {
     const { platform: platformName, device: deviceName } = args
 
-    const platform = filteredPlatforms.find(x => x.name === platformName)!
+    const targetPlatform = filteredPlatforms.find(x => x.name === platformName)!
 
-    const device = platform.devices.find(x => x.os?.find(y => y.name === deviceName))
+    const otherPlatforms = Config.filter(x => x.name !== platformName)!
+
+    const device = targetPlatform.devices.find(y => y.name === deviceName)
+    // // const device = platform.devices.find(x => x.os?.find(y => y.name === deviceName))
+    // console.log(platform.devices)
+    // console.log(device)
 
     if (!device) {
       throw new Error('Device is not valid for this platform')
@@ -51,39 +59,49 @@ export default class Install extends Command {
       throw new Error('OS is not valid for this device')
     }
 
-    return { platform, device, os }
+    return { targetPlatform, otherPlatforms, device, os }
   }
 
   async run() {
     const { args } = this.parse(Install)
-    const { os } = this.parseArgs(args)
+    const { otherPlatforms, os } = this.parseArgs(args)
     const installActions = os.actions
     const repoActions = RepoConfig
 
     const installTasks = new Listr({ concurrent: false, exitOnError: false })
     const repoTasks = new Listr({ concurrent: false, exitOnError: false })
 
+    console.log()
+
+    otherPlatforms.reduce()
+
     installActions.forEach(action => {
-      installTasks.add({
-        title: action.name,
-        task: () => command(action.cmd).catch(error => {
-          if (error.failed === true) {
-            this.error(action.errorMessage)
-          }
-        }),
-      })
+      // const cmd = action.cmd.replace(actionExpression,)
+
+      // console.log(cmd)
     })
 
-    repoActions.forEach(action => {
-      const cmd = `git clone ${action.url}`
-      repoTasks.add({
-        title: action.name,
-        task: () => command(cmd).catch(error => {
-          if (error.failed === true) {
-            this.error(`An error occurred while cloning ${action.name} repository`)
-          }
-        }),
-      })
-    })
+    //   installActions.forEach(action => {
+    //     installTasks.add({
+    //       title: action.name,
+    //       task: () => command(action.cmd).catch(error => {
+    //         if (error.failed === true) {
+    //           this.error(action.errorMessage)
+    //         }
+    //       }),
+    //     })
+    //   })
+
+    //   repoActions.forEach(action => {
+    //     const cmd = `git clone ${action.url}`
+    //     repoTasks.add({
+    //       title: action.name,
+    //       task: () => command(cmd).catch(error => {
+    //         if (error.failed === true) {
+    //           this.error(`An error occurred while cloning ${action.name} repository`)
+    //         }
+    //       }),
+    //     })
+    //   })
   }
 }
