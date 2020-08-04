@@ -15,14 +15,18 @@ export default class Authenticate extends Command {
     }
 
     async askDockerLoginToGithubPackages() {
+        execSync('clear', { stdio: 'inherit' })
         const response = await prompts(
             {
                 type: 'toggle',
                 name: 'login',
                 message: 'Do you want to login to github docker package registry',
+                initial: true,
+                active: 'yes',
+                inactive: 'no',
             },
         )
-        console.log(response)
+
         if (response.login === true) {
             const questions = [
                 {
@@ -61,7 +65,7 @@ export default class Authenticate extends Command {
         await prompts({
             type: 'toggle',
             name: 'sshKey',
-            message: 'Do you want to display your ssh key',
+            message: 'Do you want to display your ssh key (Add it to you github profile)',
             initial: true,
             active: 'yes',
             inactive: 'no',
@@ -94,16 +98,26 @@ export default class Authenticate extends Command {
     }
 
     copySSHKeyToRemote(answers: List<string>) {
+        execSync('clear', { stdio: 'inherit' })
         answers.forEach((remote: string) => {
             if (remote === 'auv7') {
-                execSync('ssh-copy-id sonia@192.168.0.11', { stdio: 'inherit', timeout: 5000 })
+                try {
+                    execSync('ssh-copy-id sonia@192.168.0.11', { stdio: 'inherit', timeout: 5000 })
+                } catch (error) {
+                    console.log('An error occured while copying ssh-key into auv7')
+                }
             } else if (remote === 'auv8') {
-                execSync('ssh-copy-id sonia@192.168.0.12', { stdio: 'inherit', timeout: 5000 })
+                try {
+                    execSync('ssh-copy-id sonia@192.168.0.12', { stdio: 'inherit', timeout: 5000 })
+                } catch (error) {
+                    console.log('An error occured while copying ssh-key into auv7')
+                }
             }
         })
     }
 
     dockerLoginToGithubPackages(username: string, token: string) {
+        execSync('clear', { stdio: 'inherit' })
         execSync(`echo "${token}" |  docker login https://docker.pkg.github.com -u ${username} --password-stdin `, { stdio: 'inherit' })
     }
 
