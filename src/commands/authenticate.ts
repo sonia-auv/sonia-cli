@@ -1,7 +1,7 @@
 import { Command, flags } from '@oclif/command'
-const prompts = require('prompts')
 import { execSync } from 'child_process'
 import { List } from 'lodash'
+const prompts = require('prompts')
 
 export default class Authenticate extends Command {
     static description = 'Add authentication credentials to access github and github packages'
@@ -18,12 +18,12 @@ export default class Authenticate extends Command {
         const response = await prompts(
             {
                 type: 'toggle',
-                name: 'dockerLogin',
+                name: 'login',
                 message: 'Do you want to login to github docker package registry',
             },
         )
-
-        if (response === true) {
+        console.log(response)
+        if (response.login === true) {
             const questions = [
                 {
                     type: 'text',
@@ -104,7 +104,7 @@ export default class Authenticate extends Command {
     }
 
     dockerLoginToGithubPackages(username: string, token: string) {
-        execSync(`docker login https://docker.pkg.github.com -u ${username} --password-stdin ${token}`, { stdio: 'inherit' })
+        execSync(`echo "${token}" |  docker login https://docker.pkg.github.com -u ${username} --password-stdin `, { stdio: 'inherit' })
     }
 
     async run() {
