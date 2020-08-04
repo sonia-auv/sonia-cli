@@ -1,4 +1,4 @@
-import { DiagnoseAction } from '.'
+import { OS } from './os'
 
 export interface DiagnoseConfig {
     name: string;
