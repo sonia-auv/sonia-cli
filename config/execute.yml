@@ -1,6 +1,6 @@
-- name: auv7
+auv7:
   devices:
-    - name: computer
+    computer:
       execute:
         - name: ssh
           cmd: ssh -X {{device.user}}@{{device.ip}}
@@ -9,9 +9,9 @@
         - name: reboot
           cmd: ssh -X {{device.user}}@{{device.ip}} sudo reboot now
 
-- name: auv8
+auv8:
   devices:
-    - name: computer
+    computer:
       execute:
         - name: ssh
           cmd: ssh -X {{device.user}}@{{device.ip}}

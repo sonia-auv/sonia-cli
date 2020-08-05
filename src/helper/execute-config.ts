@@ -10,7 +10,9 @@ export class ExecuteConfig {
     const docCommon = safeLoad(readFileSync(configFolderPath + '/common.yml', 'utf8')) as ExecutePlatform[]
     const docExecute = safeLoad(readFileSync(configFolderPath + '/execute.yml', 'utf8')) as ExecutePlatform[]
     merge(docCommon, docExecute)
-    this.config = docCommon
+    const result = Object.entries(docCommon).map(x => ({ ...(x[1]), devices: [...(Object.entries(x[1].devices).map(y => ({ ...(y[1]), name: y[0] })))], name: x[0] }))
+
+    this.config = result
   }
 }
 
