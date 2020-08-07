@@ -1,5 +1,6 @@
 import { Command, flags } from '@oclif/command'
 import { execSync } from 'child_process'
+import * as path from 'path'
 const prompts = require('prompts')
 
 export default class Authenticate extends Command {
@@ -85,14 +86,16 @@ export default class Authenticate extends Command {
 
   createSSHKey(answer: boolean) {
     if (answer === true) {
-      execSync(`ssh-keygen -t rsa -b 4096 -N '' -f ${this.config.home}/.ssh/id_rsa`, { stdio: 'inherit' })
+      const filePath = path.join(this.config.home, '.ssh', 'id_rsa')
+      execSync(`ssh-keygen -t rsa -b 4096 -N '' -f ${filePath}`, { stdio: 'inherit' })
       execSync('clear', { stdio: 'inherit' })
     }
   }
 
   displaySSHKey(answer: boolean) {
     if (answer === true) {
-      execSync(`cat ${this.config.home}/.ssh/id_rsa.pub`, { stdio: 'inherit' })
+      const filePath = path.join(this.config.home, '.ssh', 'id_rsa.pub')
+      execSync(`cat ${filePath}`, { stdio: 'inherit' })
     }
   }
 
