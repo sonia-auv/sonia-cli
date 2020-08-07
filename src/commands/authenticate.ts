@@ -85,14 +85,14 @@ export default class Authenticate extends Command {
 
   createSSHKey(answer: boolean) {
     if (answer === true) {
-      execSync("ssh-keygen -t rsa -b 4096 -N '' -f ~/.ssh/id_rsa", { stdio: 'inherit' })
+      execSync(`ssh-keygen -t rsa -b 4096 -N '' -f ${this.config.home}/.ssh/id_rsa`, { stdio: 'inherit' })
       execSync('clear', { stdio: 'inherit' })
     }
   }
 
   displaySSHKey(answer: boolean) {
     if (answer === true) {
-      execSync('cat ~/.ssh/id_rsa.pub', { stdio: 'inherit' })
+      execSync(`cat ${this.config.home}/.ssh/id_rsa.pub`, { stdio: 'inherit' })
     }
   }
 
@@ -117,7 +117,7 @@ export default class Authenticate extends Command {
 
   dockerLoginToGithubPackages(username: string, token: string) {
     execSync('clear', { stdio: 'inherit' })
-    execSync(`echo "${token}" |  docker login https://docker.pkg.GitHub.com -u ${username} --password-stdin `, { stdio: 'inherit' })
+    execSync(`echo "${token}" | docker login https://docker.pkg.github.com -u ${username} --password-stdin `, { stdio: 'inherit' })
   }
 
   async run() {
