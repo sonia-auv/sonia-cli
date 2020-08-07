@@ -42,6 +42,21 @@ export default class Execute extends Command {
     },
   ]
 
+  parseArgs(args: { [name: string]: any }) {
+    const { platform: platformName, cmd: cmdName } = args
+
+    const platform = filteredPlatforms.find(x => x.name === platformName)!
+    const device = platform.devices.find(x => x.execute?.find(y => y.name === cmdName))
+
+    if (!device) {
+      throw new Error('cmd is not valid for this platform')
+    }
+
+    const executeConfig = device.execute!.find(x => x.name === cmdName)!
+
+    return { platform, device, executeConfig }
+  }
+
   /**
    * Parse args and return
    * @param {string[]} args Additional diagnose command arguments
