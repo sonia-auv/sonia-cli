@@ -2,6 +2,7 @@ import { readFileSync } from 'fs'
 import { safeLoad } from 'js-yaml'
 import { ExecutePlatform } from '../models/config/execute'
 import { merge } from 'lodash'
+import * as path from 'path'
 
 export class ExecuteConfig {
   config: ExecutePlatform[];
@@ -16,4 +17,7 @@ export class ExecuteConfig {
   }
 }
 
-export const Config = new ExecuteConfig(`${process.cwd()}/config`).config
+
+var configPath = path.join(__dirname, '..', 'config');
+
+export const Config = new ExecuteConfig(configPath).config

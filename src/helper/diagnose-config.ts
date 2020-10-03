@@ -2,6 +2,7 @@ import { readFileSync } from 'fs'
 import { safeLoad } from 'js-yaml'
 import { DiagnosePlatform } from '../models/config/diagnose'
 import { merge } from 'lodash'
+import * as path from 'path'
 
 export class DiagnoseConfig {
   config: DiagnosePlatform[];
@@ -16,5 +17,5 @@ export class DiagnoseConfig {
     this.config = result
   }
 }
-
-export const Config = new DiagnoseConfig(`${process.cwd()}/config`).config
+const  configPath = path.join(__dirname, '..', 'config');
+export const Config = new DiagnoseConfig(configPath).config
