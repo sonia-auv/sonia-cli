@@ -17,5 +17,5 @@ export class DiagnoseConfig {
     this.config = result
   }
 }
-const  configPath = path.join(__dirname, '..', 'config');
+const  configPath = path.join(__dirname,"..", '..', 'config');
 export const Config = new DiagnoseConfig(configPath).config
