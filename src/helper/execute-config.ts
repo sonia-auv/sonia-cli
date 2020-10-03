@@ -16,4 +16,4 @@ export class ExecuteConfig {
   }
 }
 
-export const Config = new ExecuteConfig('./config').config
+export const Config = new ExecuteConfig('./src/config').config

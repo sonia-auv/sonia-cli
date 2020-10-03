@@ -17,4 +17,4 @@ export class DiagnoseConfig {
   }
 }
 
-export const Config = new DiagnoseConfig('./config').config
+export const Config = new DiagnoseConfig('./src/config').config

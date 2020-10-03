@@ -1,7 +1,7 @@
 {
   "name": "sonia-auv-cli",
   "description": "SONIA AUV CLI Tools",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "author": "SONIA AUV Team",
   "bin": {
     "sonia": "./bin/run"
@@ -36,7 +36,7 @@
     "eslint-config-oclif": "^3.1.0",
     "eslint-config-oclif-typescript": "^0.1.0",
     "globby": "^10.0.2",
-    "mocha": "^5.2.0",
+    "mocha": "^8.1.3",
     "nyc": "^14.1.1",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.5"
