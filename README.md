@@ -19,7 +19,7 @@ $ npm install -g sonia-auv-cli
 $ sonia COMMAND
 running command...
 $ sonia (-v|--version|version)
-sonia-auv-cli/1.0.0 darwin-x64 node-v12.18.4
+sonia-auv-cli/0.0.8 darwin-x64 node-v12.18.4
 $ sonia --help [COMMAND]
 USAGE
   $ sonia COMMAND
@@ -49,7 +49,7 @@ EXAMPLE
   $ sonia authenticate
 ```
 
-_See code: [src/commands/authenticate.ts](https://github.com/sonia-auv/sonia-auv-cli/blob/v1.0.0/src/commands/authenticate.ts)_
+_See code: [src/commands/authenticate.ts](https://github.com/sonia-auv/sonia-auv-cli/blob/v0.0.8/src/commands/authenticate.ts)_
 
 ## `sonia autocomplete [SHELL]`
 
@@ -97,7 +97,7 @@ EXAMPLES
   $ sonia diagnose auv8 computer
 ```
 
-_See code: [src/commands/diagnose.ts](https://github.com/sonia-auv/sonia-auv-cli/blob/v1.0.0/src/commands/diagnose.ts)_
+_See code: [src/commands/diagnose.ts](https://github.com/sonia-auv/sonia-auv-cli/blob/v0.0.8/src/commands/diagnose.ts)_
 
 ## `sonia execute PLATFORM DEVICE CMD`
 
@@ -124,7 +124,7 @@ EXAMPLES
   $ sonia execute auv8 computer reboot
 ```
 
-_See code: [src/commands/execute.ts](https://github.com/sonia-auv/sonia-auv-cli/blob/v1.0.0/src/commands/execute.ts)_
+_See code: [src/commands/execute.ts](https://github.com/sonia-auv/sonia-auv-cli/blob/v0.0.8/src/commands/execute.ts)_
 
 ## `sonia help [COMMAND]`
 

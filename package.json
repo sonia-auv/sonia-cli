@@ -1,7 +1,7 @@
 {
   "name": "sonia-auv-cli",
   "description": "SONIA AUV CLI Tools",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": "SONIA AUV Team",
   "bin": {
     "sonia": "./bin/run"
@@ -47,6 +47,7 @@
   "files": [
     "/bin",
     "/lib",
+    "/config",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
