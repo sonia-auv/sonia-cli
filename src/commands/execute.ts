@@ -67,9 +67,8 @@ export default class Execute extends Command {
   async run() {
     const { args } = this.parse(Execute)
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    /* eslint-disable no-unused-vars */
     const { platform, device, executeConfig } = this.parseArgs(args) // Device is needed for eval function
-
     const platformName = platform.name.replace(actionExpression, (_, group1) => eval(group1))
     const name = executeConfig.name.replace(actionExpression, (_, group1) => eval(group1))
     const cmd = executeConfig.cmd.replace(actionExpression, (_, group1) => eval(group1))
