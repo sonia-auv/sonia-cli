@@ -4,8 +4,10 @@
     "oclif-typescript"
   ],
   "rules": {
+    "@typescript-eslint/no-unused-vars": "off",
     "no-console": 0,
     "no-eval": 0,
+    "no-unused-vars": "off",
     "object-curly-spacing": [
       1,
       "always"
