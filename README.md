@@ -15,11 +15,11 @@ SONIA AUV CLI Tools
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g sonia-cli
+$ npm install -g sonia-auv-cli
 $ sonia COMMAND
 running command...
 $ sonia (-v|--version|version)
-sonia-cli/0.0.0 linux-x64 node-v12.18.0
+sonia-auv-cli/1.0.0 darwin-x64 node-v12.18.4
 $ sonia --help [COMMAND]
 USAGE
   $ sonia COMMAND
@@ -28,28 +28,103 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`sonia hello [FILE]`](#sonia-hello-file)
+* [`sonia authenticate`](#sonia-authenticate)
+* [`sonia autocomplete [SHELL]`](#sonia-autocomplete-shell)
+* [`sonia diagnose [PLATFORM] [DEVICE]`](#sonia-diagnose-platform-device)
+* [`sonia execute PLATFORM DEVICE CMD`](#sonia-execute-platform-device-cmd)
 * [`sonia help [COMMAND]`](#sonia-help-command)
 
-## `sonia hello [FILE]`
+## `sonia authenticate`
 
-describe the command here
+Add authentication credentials to access GitHub and GitHub Packages
 
 ```
 USAGE
-  $ sonia hello [FILE]
+  $ sonia authenticate
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -h, --help  show CLI help
 
 EXAMPLE
-  $ sonia hello
-  hello world from ./src/hello.ts!
+  $ sonia authenticate
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/sonia-auv/sonia-cli/blob/v0.0.0/src/commands/hello.ts)_
+_See code: [src/commands/authenticate.ts](https://github.com/sonia-auv/sonia-auv-cli/blob/v1.0.0/src/commands/authenticate.ts)_
+
+## `sonia autocomplete [SHELL]`
+
+display autocomplete installation instructions
+
+```
+USAGE
+  $ sonia autocomplete [SHELL]
+
+ARGUMENTS
+  SHELL  shell type
+
+OPTIONS
+  -r, --refresh-cache  Refresh cache (ignores displaying instructions)
+
+EXAMPLES
+  $ sonia autocomplete
+  $ sonia autocomplete bash
+  $ sonia autocomplete zsh
+  $ sonia autocomplete --refresh-cache
+```
+
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v0.2.0/src/commands/autocomplete/index.ts)_
+
+## `sonia diagnose [PLATFORM] [DEVICE]`
+
+Diagnose the system, specific platform and/or device(s)
+
+```
+USAGE
+  $ sonia diagnose [PLATFORM] [DEVICE]
+
+ARGUMENTS
+  PLATFORM  (dockbox|auv7|auv8) Platform to target. None = all
+  DEVICE    (router|switch|computer|dvl|sonar) Device to target (must be contain in specified platform). None = all
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLES
+  $ sonia diagnose
+  $ sonia diagnose dockbox
+  $ sonia diagnose auv7
+  $ sonia diagnose auv7 dvl
+  $ sonia diagnose auv8 computer
+```
+
+_See code: [src/commands/diagnose.ts](https://github.com/sonia-auv/sonia-auv-cli/blob/v1.0.0/src/commands/diagnose.ts)_
+
+## `sonia execute PLATFORM DEVICE CMD`
+
+Execute a command to a remote device
+
+```
+USAGE
+  $ sonia execute PLATFORM DEVICE CMD
+
+ARGUMENTS
+  PLATFORM  (auv7|auv8) Platform to target
+  DEVICE    (computer) Device to target
+  CMD       (ssh|shutdown|reboot) Command to execute (must be contain in specified platform-device)
+
+OPTIONS
+  -h, --help  show CLI help
+
+ALIASES
+  $ sonia exec
+
+EXAMPLES
+  $ sonia execute auv7 computer ssh
+  $ sonia execute auv7 computer shutdown
+  $ sonia execute auv8 computer reboot
+```
+
+_See code: [src/commands/execute.ts](https://github.com/sonia-auv/sonia-auv-cli/blob/v1.0.0/src/commands/execute.ts)_
 
 ## `sonia help [COMMAND]`
 

@@ -1,7 +1,7 @@
 {
   "name": "sonia-auv-cli",
   "description": "SONIA AUV CLI Tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "SONIA AUV Team",
   "bin": {
     "sonia": "./bin/run"
@@ -23,6 +23,7 @@
     "npm": "^6.14.7",
     "oclif": "^1.16.1",
     "prompts": "^2.3.2",
+    "sonia-auv-cli": "file:sonia-auv-cli-1.0.0.tgz",
     "tslib": "^1.13.0"
   },
   "devDependencies": {
