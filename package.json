@@ -1,7 +1,7 @@
 {
   "name": "sonia-auv-cli",
   "description": "SONIA AUV CLI Tools",
-  "version": "0.0.5",
+  "version": "0.0.6n",
   "author": "SONIA AUV Team",
   "bin": {
     "sonia": "./bin/run"
