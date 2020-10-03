@@ -18,6 +18,5 @@ export class ExecuteConfig {
 }
 
 
-var configPath = path.join(__dirname, '..', 'config');
-
+const  configPath = path.join(__dirname,"..", '..', 'config');
 export const Config = new ExecuteConfig(configPath).config
